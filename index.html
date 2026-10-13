@@ -1,0 +1,1167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>At the Atelier — 3D + SaaS Teaser & Explainer Pitch · Sickrit Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f6f2;
+  --ink: #0d0c18;
+  --mute: #656375;
+  --line: #dfdad1;
+  --card: #ffffff;
+  --gold: #b69255;
+  --gold-glow: rgba(182, 146, 85, 0.25);
+  --navy: #1c1a54;
+  --navy-light: #2b277d;
+  --on: #ffffff;
+  --blue-accent: #3874ff;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c0b14;
+    --ink: #f5f4ef;
+    --mute: #9290a3;
+    --line: #242236;
+    --card: #151324;
+    --gold: #d4b57e;
+    --gold-glow: rgba(212, 181, 126, 0.28);
+    --navy: #2d297a;
+    --navy-light: #413ba8;
+    --on: #ffffff;
+    --blue-accent: #4d8aff;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c0b14;
+  --ink: #f5f4ef;
+  --mute: #9290a3;
+  --line: #242236;
+  --card: #151324;
+  --gold: #d4b57e;
+  --gold-glow: rgba(212, 181, 126, 0.28);
+  --navy: #2d297a;
+  --navy-light: #413ba8;
+  --on: #ffffff;
+  --blue-accent: #4d8aff;
+}
+:root[data-theme="light"] {
+  --bg: #f8f6f2;
+  --ink: #0d0c18;
+  --mute: #656375;
+  --line: #dfdad1;
+  --card: #ffffff;
+  --gold: #b69255;
+  --gold-glow: rgba(182, 146, 85, 0.25);
+  --navy: #1c1a54;
+  --navy-light: #2b277d;
+  --on: #ffffff;
+  --blue-accent: #2663eb;
+}
+
+* { box-sizing: border-box; margin: 0; }
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter Tight', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  overflow: hidden;
+}
+
+.stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(100vw, calc(100vh * 16 / 9));
+  aspect-ratio: 16/9;
+  transform: translate(-50%, -50%);
+  container-type: size;
+  background: var(--bg);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--line), 0 25px 60px rgba(0,0,0,0.18);
+}
+
+.s {
+  position: absolute;
+  inset: 0;
+  padding: 4.2cqw 5cqw 6.5cqw;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.6cqw;
+}
+.s.on {
+  display: flex;
+  animation: in .42s ease;
+}
+@keyframes in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+.tag {
+  font-size: 0.95cqw;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--mute);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6cqw;
+}
+.tag-badge {
+  background: var(--gold-glow);
+  color: var(--gold);
+  padding: 0.2cqw 0.7cqw;
+  border-radius: 99px;
+  font-size: 0.85cqw;
+  letter-spacing: .06em;
+  font-weight: 700;
+}
+
+h1, h2 {
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: .95;
+  text-transform: lowercase;
+}
+h1 {
+  font-size: 11cqw;
+  line-height: .9;
+}
+h2 {
+  font-size: 4.4cqw;
+  max-width: 20ch;
+  line-height: 1.02;
+}
+h1 i, h2 i {
+  font-style: normal;
+  color: var(--blue-accent);
+}
+
+p, li {
+  font-size: 1.35cqw;
+  line-height: 1.48;
+  color: var(--mute);
+  max-width: 54ch;
+}
+p b, li b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.1cqw;
+}
+.c {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1.2cqw;
+  padding: 1.6cqw;
+  display: flex;
+  flex-direction: column;
+  gap: .7cqw;
+  min-height: 14cqw;
+  transition: transform .2s, border-color .2s;
+}
+.c:hover {
+  transform: translateY(-2px);
+  border-color: var(--gold);
+}
+.c h3 {
+  font-size: 2cqw;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  text-transform: lowercase;
+}
+.c p {
+  font-size: 1.1cqw;
+  line-height: 1.4;
+}
+.c.hi {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--on);
+  box-shadow: 0 10px 30px rgba(28,26,84,0.35);
+}
+.c.hi h3, .c.hi p, .c.hi b { color: var(--on); }
+.c.hi .tag { color: var(--gold); }
+.c .tag { margin-top: auto; }
+
+.two {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 4cqw;
+  align-items: center;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1cqw;
+}
+li {
+  padding-left: 1.7cqw;
+  position: relative;
+}
+li:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .6em;
+  width: .6cqw;
+  height: .6cqw;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: 9fr 14fr 24fr 13fr;
+  gap: .6cqw;
+}
+.bar div {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1.1cqw;
+  padding: 1.3cqw;
+  min-height: 14.5cqw;
+  display: flex;
+  flex-direction: column;
+  gap: .5cqw;
+}
+.bar div:nth-child(3) {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+.bar div:nth-child(3) * { color: var(--on); }
+.bar div:nth-child(3) span { color: var(--gold); }
+.bar b {
+  font-size: 1.7cqw;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  text-transform: lowercase;
+}
+.bar span {
+  font-size: .95cqw;
+  color: var(--mute);
+  font-weight: 600;
+}
+.bar p {
+  font-size: 1cqw;
+  line-height: 1.38;
+}
+
+/* 6-Week Grid Tree */
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1cqw;
+}
+.week-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1.1cqw;
+  padding: 1.2cqw 1.4cqw;
+  display: flex;
+  flex-direction: column;
+  gap: .4cqw;
+  position: relative;
+  transition: border-color .2s;
+}
+.week-card:hover {
+  border-color: var(--blue-accent);
+}
+.week-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: .5cqw;
+  margin-bottom: .4cqw;
+}
+.week-num {
+  font-size: 0.9cqw;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--blue-accent);
+}
+.week-title {
+  font-size: 1.15cqw;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -.02em;
+}
+.week-tree {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82cqw;
+  line-height: 1.5;
+  color: var(--mute);
+  white-space: pre-wrap;
+}
+.week-tree span.t-branch {
+  color: var(--blue-accent);
+  font-weight: 600;
+}
+.week-tree b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* Production Roadmap Layout (Screenshot 2 Match) */
+.roadmap-wrap {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 3cqw;
+  align-items: center;
+}
+.roadmap-phases {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3cqw;
+}
+.roadmap-phase-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1cqw;
+  font-size: 1.25cqw;
+  line-height: 1.45;
+  color: var(--mute);
+}
+.phase-dot {
+  width: 0.7cqw;
+  height: 0.7cqw;
+  border-radius: 50%;
+  background: var(--blue-accent);
+  margin-top: 0.55cqw;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px var(--blue-accent);
+}
+.roadmap-phase-item b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Milestone Card (Screenshot 2) */
+.milestone-box {
+  background: #0f162c;
+  border: 1.5px solid #29479c;
+  border-radius: 1.3cqw;
+  padding: 2cqw 2.2cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2cqw;
+  box-shadow: 0 15px 40px rgba(10, 18, 48, 0.4);
+}
+.milestone-box h3 {
+  font-size: 1.8cqw;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -.02em;
+}
+.milestone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9cqw;
+}
+.milestone-item {
+  font-size: 1.15cqw;
+  line-height: 1.4;
+  color: #d8deeb;
+}
+.milestone-item b {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Budget Table (Screenshot 1 Match) */
+.budget-table-wrap {
+  background: #0b0d19;
+  border: 1px solid #1c223a;
+  border-radius: 1.1cqw;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+.budget-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98cqw;
+  color: #ffffff;
+}
+.budget-table th {
+  background: #111528;
+  color: #838ea8;
+  font-size: 0.8cqw;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 0.9cqw 1.2cqw;
+  border-bottom: 1px solid #1c223a;
+  text-align: left;
+}
+.budget-table th:nth-child(3),
+.budget-table th:nth-child(4) {
+  text-align: right;
+}
+.budget-table td {
+  padding: 0.85cqw 1.2cqw;
+  border-bottom: 1px solid #171d33;
+  color: #9ca7c0;
+}
+.budget-table td:nth-child(1) {
+  font-weight: 700;
+  color: #ffffff;
+}
+.budget-table td:nth-child(3),
+.budget-table td:nth-child(4) {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+.budget-table td:nth-child(4) {
+  color: #ffffff;
+}
+.budget-table tr.total-row {
+  background: #101c44;
+}
+.budget-table tr.total-row td {
+  font-size: 1.2cqw;
+  font-weight: 800;
+  color: #ffffff;
+  border-bottom: none;
+  padding: 1.1cqw 1.2cqw;
+}
+.budget-footnotes {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.8cqw;
+  font-size: 0.85cqw;
+  color: var(--mute);
+}
+
+/* Moodboard media gallery */
+.mb-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr 1fr;
+  gap: 1cqw;
+  align-items: stretch;
+}
+.mb-card {
+  position: relative;
+  border-radius: 1.1cqw;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+}
+.mb-card img {
+  width: 100%;
+  height: 14cqw;
+  object-fit: cover;
+  display: block;
+}
+.mb-card-body {
+  padding: 1cqw 1.2cqw;
+  display: flex;
+  flex-direction: column;
+  gap: .3cqw;
+}
+.mb-card-body b {
+  font-size: 1.15cqw;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  text-transform: lowercase;
+}
+.mb-card-body p {
+  font-size: .9cqw;
+  line-height: 1.35;
+}
+
+/* Notes chips */
+.notes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5cqw;
+}
+.notes span {
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 99px;
+  padding: .45cqw 1cqw;
+  font-size: .95cqw;
+  color: var(--mute);
+  font-weight: 500;
+}
+.notes span.active {
+  background: rgba(56, 116, 255, 0.12);
+  border-color: var(--blue-accent);
+  color: var(--blue-accent);
+  font-weight: 600;
+}
+
+/* Timeline schedule grid */
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1cqw;
+}
+.tl-col {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1.1cqw;
+  padding: 1.3cqw;
+  display: flex;
+  flex-direction: column;
+  gap: .6cqw;
+  min-height: 14cqw;
+}
+.tl-step {
+  font-size: 0.85cqw;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--blue-accent);
+}
+.tl-title {
+  font-size: 1.4cqw;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  text-transform: lowercase;
+}
+.tl-desc {
+  font-size: 0.98cqw;
+  line-height: 1.38;
+  color: var(--mute);
+}
+.tl-tag {
+  margin-top: auto;
+  font-size: 0.85cqw;
+  font-weight: 600;
+  padding: 0.3cqw 0.7cqw;
+  border-radius: 99px;
+  background: var(--bg);
+  width: fit-content;
+}
+
+/* Navigation bar */
+.nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1cqw 5cqw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  background: linear-gradient(to top, var(--bg) 75%, transparent);
+}
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: .8cqw;
+}
+.nav button, .nav a.btn-link {
+  font: inherit;
+  font-size: .95cqw;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: 99px;
+  padding: .5cqw 1.2cqw;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .4cqw;
+  transition: all .15s;
+  font-weight: 500;
+}
+.nav button:hover, .nav a.btn-link:hover {
+  border-color: var(--blue-accent);
+  color: var(--blue-accent);
+}
+.btn-gold {
+  background: var(--blue-accent) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+  border-color: var(--blue-accent) !important;
+}
+.btn-gold:hover {
+  opacity: .92;
+}
+.dots {
+  display: flex;
+  gap: .4cqw;
+}
+.dots i {
+  width: 1.4cqw;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--line);
+  cursor: pointer;
+  transition: background .2s, width .2s;
+}
+.dots i.on {
+  background: var(--blue-accent);
+  width: 2.2cqw;
+}
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: .8cqw;
+  font-size: .95cqw;
+  font-weight: 700;
+}
+.brand-lockup img {
+  height: 1.3cqw;
+}
+
+@media print {
+  @page {
+    size: 16in 9in landscape;
+    margin: 0;
+  }
+  html, body {
+    height: auto !important;
+    overflow: visible !important;
+    background: var(--bg) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .stage {
+    position: static !important;
+    transform: none !important;
+    width: 100vw !important;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+  .nav {
+    display: none !important;
+  }
+  .s {
+    display: flex !important;
+    position: relative !important;
+    inset: auto !important;
+    width: 100vw !important;
+    height: 56.25vw !important;
+    min-height: 56.25vw !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    padding: 4.5cqw 5cqw !important;
+    box-sizing: border-box !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <!-- SLIDE 0: HERO COVER -->
+  <section class="s on">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+      <span class="tag">sickrit studio · creative pitch & proposal <span class="tag-badge">new client</span></span>
+      <div style="display:flex; gap:0.5cqw; align-items:center;">
+        <span class="tag">client: <b>attheatelier.co</b></span>
+      </div>
+    </div>
+    <h1>at the atelier<i>.</i></h1>
+    <p>A flagship 60-second SaaS + 3D launch teaser & explainer ad for the in-store ring configurator. Visual lookdev, narrative flow, 6-week turnaround schedule, and transparent project budget.</p>
+    <div class="notes" style="margin-top:0.5cqw;">
+      <span class="active">3D Jewelry CGI</span>
+      <span class="active">SaaS Explainer</span>
+      <span class="active">Prototype Kit Synergy</span>
+      <span>True-to-Life Diamond Caustics</span>
+      <span>16:9 4K Master</span>
+      <span>9:16 Vertical Cut-Down</span>
+      <span class="active">₹379,600 INR (Before Taxes · Taxes &amp; TDS Not Included)</span>
+      <span>6-Week Turnaround</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 1: THE BRIEF -->
+  <section class="s">
+    <span class="tag">01 · the brief</span>
+    <h2>reinventing the jewellery counter<i>.</i></h2>
+    <div class="two">
+      <div>
+        <p style="margin-bottom:1.2cqw;">Independent jewellers face an impossible dilemma: <b>lock hundreds of thousands in capital holding loose stones</b> in display cases, or watch customers walk away when the exact ring isn't in stock.</p>
+        <p><b>At the Atelier</b> dissolves this boundary. With a real-time 3D configurator SaaS at the counter and a tactile luxury Prototype Kit, jewellers sell any bespoke ring with <b>zero inventory risk</b> and Mumbai master fulfillment.</p>
+      </div>
+      <ul>
+        <li><b>Make jewellers feel the shift:</b> Sell what the customer imagines, not what's trapped in the showcase.</li>
+        <li><b>Hook in 3 seconds:</b> Mesmerizing macro diamond refraction + tactile unboxing of the luxury blue linen box.</li>
+        <li><b>Clear 3-step proof:</b> Sit down together → Design live in 3D → Close the order with 12-day delivery.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: DIRECTIONS EXPLORED -->
+  <section class="s">
+    <span class="tag">02 · directions we looked at</span>
+    <h2>four ways to tell the story<i>.</i></h2>
+    <div class="row">
+      <div class="c">
+        <h3>screen tour</h3>
+        <p>Pure UI screencast & software walkthrough. Clear functionality, but feels clinical and lacks luxury emotion.</p>
+        <span class="tag">flat · low prestige</span>
+      </div>
+      <div class="c">
+        <h3>pure 3d cgi</h3>
+        <p>Abstract raytraced jewelry render commercial. Visually stunning, but fails to explain the SaaS tool & counter workflow.</p>
+        <span class="tag">glamorous · incomplete</span>
+      </div>
+      <div class="c">
+        <h3>counter live shoot</h3>
+        <p>Full film crew inside a jewellery boutique. Authentic, but heavy on budget, casting, and rigid to future UI updates.</p>
+        <span class="tag">costly · inflexible</span>
+      </div>
+      <div class="c hi">
+        <h3>3d + saas hybrid</h3>
+        <p>Hyper-real 3D jewelry CGI interwoven with slick, floating SaaS UI cards and tactile Prototype Kit interactions.</p>
+        <span class="tag">recommended · high-converting</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: RECOMMENDED APPROACH -->
+  <section class="s">
+    <span class="tag">03 · recommended approach</span>
+    <h2>photoreal 3d meets tactile saas<i>.</i></h2>
+    <div class="two">
+      <ul>
+        <li><b>Photorealistic 3D Ring Magic:</b> Raytraced diamond dispersion, light caustics, and gold/platinum luster rendered to high luxury benchmark standards.</li>
+        <li><b>Tactile Prototype Kit Focus:</b> Highlighting the bespoke blue linen box, 75+ heads, and 77+ shank prototypes to give physical weight to digital customization.</li>
+        <li><b>Fluid SaaS UI Choreography:</b> Interactive carat sliders, shape selectors, and metal toggles animating seamlessly alongside the rotating 3D ring.</li>
+        <li><b>Omni-Channel Architecture:</b> Master 16:9 engineered from day one to yield high-impact 9:16 vertical cuts for Instagram, TikTok, and B2B LinkedIn ads.</li>
+      </ul>
+      <div>
+        <div style="background:var(--card); border:1px solid var(--line); border-radius:1.2cqw; padding:1.5cqw; box-shadow:0 8px 24px rgba(0,0,0,0.06);">
+          <span class="tag" style="color:var(--blue-accent); margin-bottom:.5cqw; display:block;">the creative equation</span>
+          <p style="font-size:1.4cqw; line-height:1.4; color:var(--ink); font-weight:600;">
+            Tactile Physical Kit <span style="color:var(--blue-accent);">+</span> Instant 3D WebGL SaaS <span style="color:var(--blue-accent);">=</span> Zero Inventory &amp; Instant Counter Closes.
+          </p>
+          <div style="margin-top:1cqw; display:flex; gap:.6cqw;">
+            <span class="tag-badge">60s Hero Video</span>
+            <span class="tag-badge">30s / 15s Cut-Downs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: ROUGH 1-MINUTE FLOW -->
+  <section class="s">
+    <span class="tag">04 · rough 1-minute narrative flow</span>
+    <h2>how the film plays<i>.</i></h2>
+    <div class="bar">
+      <div>
+        <span>0–8s</span>
+        <b>the hook</b>
+        <p>Showcase reflection. A customer hesitates over static rings in the glass case. "Why settle for what's already made?"</p>
+      </div>
+      <div>
+        <span>8–22s</span>
+        <b>the kit</b>
+        <p>Gloved hands lift the royal blue Atelier linen lid. Modular trays reveal 75+ heads and 77+ shanks. Tactile click.</p>
+      </div>
+      <div>
+        <span>22–48s</span>
+        <b>3d configurator</b>
+        <p>Seamless transition to screen: real-time 3D ring rotates. Stone shape transforms live (Round → Oval → Emerald). Metal switches to yellow gold. Floating UI cards confirm specs.</p>
+      </div>
+      <div>
+        <span>48–60s</span>
+        <b>the reveal & cta</b>
+        <p>The finished ring locks in. "No inventory. Mumbai master crafting in 12 days." Brand reveal: At the Atelier. "Your store. Your name. Your atelier."</p>
+      </div>
+    </div>
+    <p>A precision-timed narrative engineered to captivate both high-end jewellers and engaged couples within the first 3 seconds.</p>
+  </section>
+
+  <!-- SLIDE 5: THE KIT + THE CLOUD -->
+  <section class="s">
+    <span class="tag">05 · the kit + the cloud</span>
+    <h2>bridging the counter gap<i>.</i></h2>
+    <div class="two" style="grid-template-columns: 1fr 1.1fr;">
+      <div>
+        <p style="margin-bottom:1cqw;">Most digital configurators fail because customers want to feel jewellery in their hands before spending thousands. At the Atelier solves this with the <b>Prototype Kit</b>.</p>
+        <ul>
+          <li><b>Physical Try-On:</b> 75+ moissanite heads & 77+ shank prototypes allow tactile finger fitting.</li>
+          <li><b>Instant Screen Sync:</b> As they hold the sample, the counter screen visualizes the exact custom piece with diamond certificate specs.</li>
+          <li><b>Emotional Closing Power:</b> Seeing their custom design come alive on screen while holding physical metal eliminates buyer hesitation.</li>
+        </ul>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.9cqw;">
+        <div style="background:var(--card); border:1px solid var(--line); border-radius:1cqw; overflow:hidden;">
+          <img src="assets/kit-box-cover.jpg" style="width:100%; height:11cqw; object-fit:cover;" alt="Box Cover">
+          <div style="padding:0.7cqw 1cqw;"><b style="font-size:1cqw; text-transform:lowercase;">royal blue linen box</b><p style="font-size:0.85cqw;">Custom embossed presentation casing.</p></div>
+        </div>
+        <div style="background:var(--card); border:1px solid var(--line); border-radius:1cqw; overflow:hidden;">
+          <img src="assets/kit-trays-all.jpg" style="width:100%; height:11cqw; object-fit:cover;" alt="Trays">
+          <div style="padding:0.7cqw 1cqw;"><b style="font-size:1cqw; text-transform:lowercase;">modular sample trays</b><p style="font-size:0.85cqw;">Center shapes, heads & shanks.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: VISUAL MOODBOARD -->
+  <section class="s">
+    <span class="tag">06 · visual moodboard & lookdev</span>
+    <h2>luxury craft meets modern software<i>.</i></h2>
+    <div class="mb-grid">
+      <div class="mb-card">
+        <img src="assets/view3.png" alt="3D Ring Render" style="background:#f0ede6; object-fit:contain; padding:1cqw;">
+        <div class="mb-card-body">
+          <b>photoreal 3d diamond render</b>
+          <p>Multi-faceted light refraction, dispersion rainbow bursts, and warm platinum reflections.</p>
+        </div>
+      </div>
+      <div class="mb-card">
+        <img src="assets/kit-demo-tray.jpg" alt="Kit Trays In Box">
+        <div class="mb-card-body">
+          <b>tactile counter experience</b>
+          <p>Black gloved hands handling pristine moissanite samples in deep sapphire velvet trays.</p>
+        </div>
+      </div>
+      <div class="mb-card">
+        <div style="height:14cqw; background:var(--navy); padding:1.8cqw; display:flex; flex-direction:column; justify-content:space-between; border-bottom:1px solid var(--line);">
+          <img src="assets/ata-wordmark-ivory.svg" alt="Wordmark" style="height:2cqw; width:auto; align-self:flex-start;">
+          <div>
+            <span style="font-size:0.8cqw; color:var(--gold); text-transform:uppercase; letter-spacing:.1em; font-weight:700;">brand palette</span>
+            <p style="color:#fff; font-size:1cqw; margin-top:.3cqw;">Royal Navy #1C1A54 · Champagne Gold #C9A96E · Crisp Ivory #F8F6F2</p>
+          </div>
+        </div>
+        <div class="mb-card-body">
+          <b>white-label elegance</b>
+          <p>Sleek UI overlays, floating diamond shape chips, and minimalist typography.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: SCOPE OF DELIVERABLES -->
+  <section class="s">
+    <span class="tag">07 · scope of deliverables</span>
+    <h2>built for web, counter & social ads<i>.</i></h2>
+    <div class="row">
+      <div class="c">
+        <span class="tl-step">deliverable 01</span>
+        <h3>16:9 hero master</h3>
+        <p>Full 60-second 4K UHD & 1080p master video. Crafted for website hero, in-store iPads, trade fairs, and YouTube.</p>
+        <span class="tag">prores 422 · h.264</span>
+      </div>
+      <div class="c hi">
+        <span class="tl-step" style="color:var(--gold);">deliverable 02</span>
+        <h3>9:16 vertical cuts</h3>
+        <p>Native vertical re-framing for Instagram Reels, TikTok, and B2B LinkedIn mobile campaigns (30s & 15s).</p>
+        <span class="tag" style="color:#fff;">social ads ready</span>
+      </div>
+      <div class="c">
+        <span class="tl-step">deliverable 03</span>
+        <h3>bespoke sound design</h3>
+        <p>Commercial licensed score, tactile clicks, jewel snaps, UI sweeps, and YouTube/Broadcast loudness mastering (-14 LUFS).</p>
+        <span class="tag">24-bit 48khz wav</span>
+      </div>
+      <div class="c">
+        <span class="tl-step">deliverable 04</span>
+        <h3>4k marketing stills</h3>
+        <p>5x high-res 3D CGI still renders extracted from the animation for pitch decks, storefront banners, and print ads.</p>
+        <span class="tag">print & web ready</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8: 6-WEEK DELIVERY SCHEDULE (NEW) -->
+  <section class="s">
+    <span class="tag">08 · delivery schedule</span>
+    <h2>6-week delivery schedule<i>.</i></h2>
+    <div class="week-grid">
+      <!-- Week 1 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">week 1</span>
+          <span class="week-title">Pre-Production &amp; Narrative</span>
+        </div>
+        <div class="week-tree"><span class="t-branch">├──</span> Script &amp; Voiceover / Music track selection
+<span class="t-branch">└──</span> Storyboard &amp; camera animatic sign-off</div>
+      </div>
+
+      <!-- Week 2 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">week 2</span>
+          <span class="week-title">3D Assets &amp; UI Motion Prep</span>
+        </div>
+        <div class="week-tree"><span class="t-branch">├──</span> CAD clean-up, tray &amp; ring modeling
+<span class="t-branch">└──</span> SaaS interface motion mapping &amp; UI integration</div>
+      </div>
+
+      <!-- Week 3 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">week 3</span>
+          <span class="week-title">Look Development &amp; Shading</span>
+        </div>
+        <div class="week-tree"><span class="t-branch">├──</span> Diamond caustic/dispersion test renders
+<span class="t-branch">└──</span> Velvet textures, packaging &amp; lighting sign-off</div>
+      </div>
+
+      <!-- Week 4 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">week 4</span>
+          <span class="week-title">Full CGI Animation &amp; Moves</span>
+        </div>
+        <div class="week-tree"><span class="t-branch">├──</span> Unboxing choreography &amp; modular snapping
+<span class="t-branch">└──</span> First cut preview review (low-res playblast)</div>
+      </div>
+
+      <!-- Week 5 -->
+      <div class="week-card">
+        <div class="week-head">
+          <span class="week-num">week 5</span>
+          <span class="week-title">4K Cloud Rendering &amp; Comp</span>
+        </div>
+        <div class="week-tree"><span class="t-branch">├──</span> Multi-pass rendering (reflection, refraction)
+<span class="t-branch">└──</span> Color grading, UI compositing &amp; visual FX</div>
+      </div>
+
+      <!-- Week 6 -->
+      <div class="week-card" style="border-color:var(--blue-accent);">
+        <div class="week-head">
+          <span class="week-num">week 6</span>
+          <span class="week-title">Sound Design &amp; Final Delivery</span>
+        </div>
+        <div class="week-tree"><span class="t-branch">├──</span> Sound FX (tactile clicks, swooshes, score)
+<span class="t-branch">└──</span> Final master delivery (4K 16:9, 9:16 cuts, stills)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 9: PRODUCTION ROADMAP (SCREENSHOT 2 MATCH) -->
+  <section class="s">
+    <span class="tag">06 · PRODUCTION ROADMAP</span>
+    <h2>6-week turnaround schedule<i>.</i></h2>
+    <div class="roadmap-wrap">
+      <div class="roadmap-phases">
+        <div class="roadmap-phase-item">
+          <div class="phase-dot"></div>
+          <div>
+            <b>Weeks 1–2 (Pre-Production &amp; CAD Assets):</b> Storyboard lock, audio scratch track, packaging CAD refinement, diamond geometry setup.
+          </div>
+        </div>
+
+        <div class="roadmap-phase-item">
+          <div class="phase-dot"></div>
+          <div>
+            <b>Weeks 3–4 (LookDev &amp; Motion Choreography):</b> Velvet &amp; caustic shader approval, camera animatic sign-off, first-look 3D playblast preview.
+          </div>
+        </div>
+
+        <div class="roadmap-phase-item">
+          <div class="phase-dot"></div>
+          <div>
+            <b>Weeks 5–6 (4K Cloud Rendering &amp; Final Polish):</b> Multi-pass Octane renders, UI compositing, sound engineering, 4K &amp; 9:16 master exports.
+          </div>
+        </div>
+      </div>
+
+      <!-- MILESTONE CARD FROM SCREENSHOT 2 -->
+      <div class="milestone-box">
+        <h3>Milestone Terms</h3>
+        <div class="milestone-list">
+          <div class="milestone-item">
+            <b>30% Advance (₹1,13,880):</b> Kickoff &amp; storyboard lock.
+          </div>
+          <div class="milestone-item">
+            <b>40% Progress (₹1,51,840):</b> 3D playblast &amp; LookDev sign-off.
+          </div>
+          <div class="milestone-item">
+            <b>30% Delivery (₹1,13,880):</b> Final 4K masters, cutdowns &amp; stills.
+          </div>
+        </div>
+        <div style="font-size:0.85cqw; line-height:1.4; color:#a2b5e8; border-top:1px solid rgba(255,255,255,0.14); padding-top:0.6cqw; margin-top:0.2cqw;">
+          * <b>Tax Note:</b> Total ₹3,79,600 (within ₹3,80,000 budget) is strictly <b>before taxes</b>. Taxes &amp; TDS are <b>not included</b>.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 10: TRANSPARENT PROJECT BUDGET (SCREENSHOT 1 MATCH) -->
+  <section class="s">
+    <span class="tag">05 · INVESTMENT BREAKDOWN</span>
+    <h2>transparent project budget<i>.</i></h2>
+    
+    <div class="budget-table-wrap">
+      <table class="budget-table">
+        <thead>
+          <tr>
+            <th>PRODUCTION CATEGORY</th>
+            <th>DETAILED SCOPE &amp; DELIVERABLES</th>
+            <th>BASE COST</th>
+            <th>FINAL (30% MARGIN)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1. Creative &amp; Pre-Production</td>
+            <td>Styleframes, camera animatic, sound direction &amp; narrative script</td>
+            <td>₹49,000</td>
+            <td>₹63,700</td>
+          </tr>
+          <tr>
+            <td>2. Physical 3D CAD &amp; Rigging</td>
+            <td>Textured linen packaging, tiered velvet trays, ring bands &amp; stone cuts</td>
+            <td>₹49,000</td>
+            <td>₹63,700</td>
+          </tr>
+          <tr>
+            <td>3. SaaS UI Motion &amp; 3D Integration</td>
+            <td>Interactive configurator UI mapping, particle FX, lighting sweep</td>
+            <td>₹89,000</td>
+            <td>₹115,700</td>
+          </tr>
+          <tr>
+            <td>4. Lighting, Shading &amp; Octane Comp</td>
+            <td>Diamond caustics, dispersion physics, gold/platinum shaders &amp; 4K passes</td>
+            <td>₹54,000</td>
+            <td>₹70,200</td>
+          </tr>
+          <tr>
+            <td>5. Post, Sound &amp; 9:16 Cutdowns</td>
+            <td>Tactile sound design, custom chimes, licensed score, 2 revision rounds</td>
+            <td>₹16,000</td>
+            <td>₹20,800</td>
+          </tr>
+          <tr>
+            <td>6. Cloud Farm Compute &amp; Backup</td>
+            <td>Cloud GPU rendering credits, storage, high-res archive</td>
+            <td>₹35,000</td>
+            <td>₹45,500</td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="2">Total Production Budget (Before Taxes)</td>
+            <td>₹292,000</td>
+            <td>₹379,600</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="budget-footnotes">
+      <span>* Base Cost total strictly calibrated to ₹292,000 INR (rounded to nearest ₹1,000).</span>
+      <span>* Final client investment: ₹379,600 INR (comfortably within the ₹380,000 cap).</span>
+    </div>
+    <div style="margin-top:0.6cqw; padding:0.6cqw 1cqw; background:rgba(41,71,156,0.25); border:1px solid #29479c; border-radius:0.6cqw; font-size:0.85cqw; color:#d8deeb; display:flex; align-items:center; gap:0.5cqw;">
+      <span style="color:#5691ff; font-weight:800; font-size:1cqw;">ℹ️</span>
+      <span><b>Commercial Note:</b> The ₹3,79,600 budget (capped at ₹3,80,000) is strictly <b>before taxes</b>. Any applicable Taxes &amp; TDS are <b>NOT included</b> in this total.</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 11: NEXT STEPS -->
+  <section class="s">
+    <span class="tag">11 · next steps & collaboration</span>
+    <h2>ready to bring it to life<i>.</i></h2>
+    <div class="two">
+      <div>
+        <p style="margin-bottom:1.2cqw;">We are primed to begin immediately upon project confirmation and receipt of CAD files and brand vectors.</p>
+        <ul>
+          <li><b>Step 1:</b> Approve the Transparent Project Budget (₹379,600 INR before taxes) &amp; 30/40/30 milestone terms. <i>(Note: Taxes / TDS are not included in this figure).</i></li>
+          <li><b>Step 2:</b> Execute the formal Service Agreement (PDF available below).</li>
+          <li><b>Step 3:</b> Kick-off Week 1: Ingest CAD meshes (`.step` / `.obj` / `.fbx`) &amp; lock script.</li>
+        </ul>
+        <div style="margin-top:1.5cqw; display:flex; gap:0.8cqw;">
+          <a class="nav button btn-gold" href="Service%20Agreement/Service_Agreement_AtTheAtelier.html" target="_blank" style="padding:0.6cqw 1.4cqw; border-radius:99px; text-decoration:none; font-size:1.1cqw; display:inline-flex; align-items:center; gap:0.5cqw;">
+            📄 View Service Agreement &amp; Quote
+          </a>
+          <a class="nav button" href="Service%20Agreement/Service_Agreement_AtTheAtelier.pdf" target="_blank" style="padding:0.6cqw 1.4cqw; border-radius:99px; text-decoration:none; font-size:1.1cqw; display:inline-flex; align-items:center; gap:0.5cqw;">
+            ⬇️ Download Formal PDF
+          </a>
+        </div>
+      </div>
+      <div style="background:var(--card); border:1px solid var(--line); border-radius:1.2cqw; padding:2cqw;">
+        <span class="tag" style="color:var(--blue-accent); margin-bottom:.5cqw; display:block;">sickrit studio direct contact</span>
+        <b style="font-size:1.6cqw; display:block; margin-bottom:.4cqw;">Aayush Choudhary</b>
+        <p style="font-size:1.05cqw; line-height:1.4; color:var(--mute); margin-bottom:1cqw;">Partner &amp; Creative Director<br>Plot No 09, Mahesh Nager, Pune, Maharashtra 411018</p>
+        <p style="font-size:1cqw;">Email: <b>info@sickirtstudio.in</b></p>
+        <p style="font-size:1cqw;">Phone: <b>+91 8830010052</b> | <b>+91 9518399249</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION BAR -->
+  <div class="nav">
+    <div class="nav-actions">
+      <button id="p">← back</button>
+      <button id="n">next →</button>
+      <button id="themeToggle" title="Toggle Light/Dark">◑ theme</button>
+    </div>
+    <div class="dots" id="d"></div>
+    <div class="brand-lockup">
+      <span style="color:var(--mute); font-size:0.85cqw;">proposal for</span>
+      <span style="color:var(--navy); font-weight:800;">at the atelier</span>
+      <span style="color:var(--line);">·</span>
+      <span style="font-weight:700;">sickrit studio</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var S = [].slice.call(document.querySelectorAll('.s')), i = 0, d = document.getElementById('d');
+S.forEach(function(_, idx) {
+  var dot = document.createElement('i');
+  dot.onclick = function() { go(idx); };
+  d.appendChild(dot);
+});
+
+function go(k) {
+  i = Math.max(0, Math.min(S.length - 1, k));
+  S.forEach(function(s, j) { s.classList.toggle('on', j === i); });
+  [].forEach.call(d.children, function(e, j) { e.classList.toggle('on', j === i); });
+}
+
+document.getElementById('n').onclick = function() { go(i + 1); };
+document.getElementById('p').onclick = function() { go(i - 1); };
+
+document.addEventListener('keydown', function(e) {
+  if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'BUTTON')) return;
+  if (e.key === 'ArrowRight' || e.key === ' ') { go(i + 1); }
+  if (e.key === 'ArrowLeft') { go(i - 1); }
+});
+
+var x0 = null;
+document.addEventListener('touchstart', function(e) { x0 = e.touches[0].clientX; });
+document.addEventListener('touchend', function(e) {
+  if (x0 === null) return;
+  var dx = e.changedTouches[0].clientX - x0;
+  if (Math.abs(dx) > 60) go(i + (dx < 0 ? 1 : -1));
+  x0 = null;
+});
+
+// Theme switcher
+var currentTheme = localStorage.getItem('ata_deck_theme') || 'dark';
+document.documentElement.setAttribute('data-theme', currentTheme);
+document.getElementById('themeToggle').onclick = function() {
+  currentTheme = (currentTheme === 'light') ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  localStorage.setItem('ata_deck_theme', currentTheme);
+};
+
+go(0);
+</script>
+</body>
+</html>
