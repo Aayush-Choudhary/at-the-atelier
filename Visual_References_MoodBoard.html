@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=3, user-scalable=yes">
+<title>At the Atelier — Visual Reference &amp; Miro Board · Sickrit Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07070d;
+  --canvas-bg: #05050a;
+  --card: #0e0e18;
+  --card-hover: #151524;
+  --ink: #f5f3ee;
+  --mute: #8e8ea6;
+  --line: #1c1c2e;
+  --gold: #c9a96e;
+  --gold-glow: rgba(201, 169, 110, 0.2);
+  --blue: #4a7dff;
+  --navy: #1c1a54;
+  --frame-bg: rgba(14, 14, 24, 0.75);
+  box-sizing: border-box;
+}
+
+:root[data-theme="light"] {
+  --bg: #f5f3ee;
+  --canvas-bg: #eae6dd;
+  --card: #ffffff;
+  --card-hover: #f7f4ee;
+  --ink: #0d0c18;
+  --mute: #676577;
+  --line: #dcd5c8;
+  --gold: #b69255;
+  --gold-glow: rgba(182, 146, 85, 0.2);
+  --blue: #2663eb;
+  --navy: #1c1a54;
+  --frame-bg: rgba(255, 255, 255, 0.85);
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter Tight', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* ==========================================
+   TOP FLOATING HUD / PRESENTATION NAVBAR
+   ========================================== */
+.top-hud {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(10, 10, 18, 0.9);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  padding: 6px 14px;
+  border-radius: 99px;
+  max-width: 95vw;
+  overflow-x: auto;
+}
+:root[data-theme="light"] .top-hud {
+  background: rgba(245, 243, 238, 0.95);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.hud-logo {
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: -.03em;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 10px;
+  border-right: 1px solid var(--line);
+}
+.hud-logo span {
+  color: var(--gold);
+}
+
+.hud-frames {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.frame-jump-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--mute);
+  font: 600 12px inherit;
+  padding: 5px 11px;
+  border-radius: 99px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .18s ease;
+}
+.frame-jump-btn:hover {
+  border-color: var(--line);
+  color: var(--ink);
+}
+.frame-jump-btn.active {
+  background: var(--gold);
+  color: #07070d;
+  font-weight: 700;
+  box-shadow: 0 2px 10px var(--gold-glow);
+}
+
+.hud-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--line);
+}
+
+.hud-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hud-btn {
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font: 600 12px inherit;
+  padding: 5px 12px;
+  border-radius: 99px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: all .2s;
+}
+.hud-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ==========================================
+   MIRO CANVAS VIEWPORT & PAN ENGINE
+   ========================================== */
+#viewport {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: grab;
+  background-color: var(--canvas-bg);
+  background-image: radial-gradient(circle, rgba(201, 169, 110, 0.15) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+#viewport.grabbing {
+  cursor: grabbing;
+}
+
+#canvasWorld {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  padding: 120px 100px 200px;
+  width: max-content;
+}
+
+/* ==========================================
+   FRAME 01: BRAND & STYLE GUIDELINES (TOP)
+   ========================================== */
+.brand-guidelines-frame {
+  background: var(--frame-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-left: 6px solid var(--gold);
+  border-radius: 26px;
+  padding: 40px 48px;
+  max-width: 1680px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+.bg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 22px;
+  margin-bottom: 30px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.bg-eye {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.bg-title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+}
+.bg-subtitle {
+  font-size: 14px;
+  color: var(--mute);
+  max-width: 60ch;
+}
+
+.guidelines-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1.3fr 1.3fr;
+  gap: 28px;
+}
+@media (max-width: 1200px) {
+  .guidelines-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Guideline Card */
+.guide-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.guide-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.guide-head h3 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+.guide-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--gold-glow);
+}
+
+/* Color Tokens Swatches */
+.swatches-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+.swatch-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.swatch-box {
+  height: 52px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.2);
+}
+.swatch-name {
+  font-size: 11px;
+  font-weight: 700;
+}
+.swatch-hex {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--mute);
+}
+
+/* Typography System */
+.type-specimen {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.specimen-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+.specimen-font {
+  font-size: 18px;
+  font-weight: 800;
+}
+.specimen-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--gold);
+}
+.specimen-usage {
+  font-size: 12px;
+  color: var(--mute);
+}
+
+/* Spec Metrics List */
+.specs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+}
+.spec-item span:first-child {
+  color: var(--mute);
+}
+.spec-item span:last-child {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+/* ==========================================
+   THEMATIC CLUSTER FRAMES (MIRO STYLE)
+   ========================================== */
+.board-frame {
+  background: var(--frame-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: 36px 42px;
+  max-width: 1680px;
+  box-shadow: 0 16px 45px rgba(0,0,0,0.35);
+}
+
+.frame-header {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 18px;
+  margin-bottom: 26px;
+}
+.frame-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.frame-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.frame-num {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--mute);
+  opacity: 0.45;
+}
+.frame-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -.03em;
+}
+.frame-desc {
+  font-size: 13.5px;
+  color: var(--mute);
+  margin-top: 4px;
+}
+
+/* Cards Grid inside Frame */
+.frame-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* Miro Board Card */
+.board-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  display: flex;
+  flex-direction: column;
+}
+.board-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.card-media {
+  position: relative;
+  width: 100%;
+  background: #020206;
+  overflow: hidden;
+}
+.card-media.tall {
+  aspect-ratio: 9/16;
+}
+.card-media.square {
+  aspect-ratio: 1/1;
+}
+.card-media.wide {
+  aspect-ratio: 16/9;
+}
+.card-media img, .card-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s ease;
+}
+.board-card:hover .card-media img,
+.board-card:hover .card-media video {
+  transform: scale(1.03);
+}
+
+.card-badge {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  font-size: 9.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 99px;
+  backdrop-filter: blur(8px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.card-badge.vid {
+  background: rgba(28, 26, 84, 0.9);
+  border-color: rgba(74, 125, 255, 0.4);
+  color: #8bb2ff;
+}
+.card-badge.img {
+  background: rgba(10, 10, 18, 0.85);
+}
+
+.card-info {
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border-top: 1px solid var(--line);
+}
+.card-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+.card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  line-height: 1.3;
+}
+
+/* ==========================================
+   BOTTOM-RIGHT ZOOM & NAVIGATION TOOLBAR
+   ========================================== */
+.bottom-tools {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(10, 10, 18, 0.9);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  padding: 6px 12px;
+  border-radius: 99px;
+}
+:root[data-theme="light"] .bottom-tools {
+  background: rgba(245, 243, 238, 0.95);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.tool-btn {
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  font-size: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .18s;
+}
+.tool-btn:hover {
+  background: var(--card-hover);
+  color: var(--gold);
+}
+.zoom-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 44px;
+  text-align: center;
+}
+.tool-tip {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  font-size: 12px;
+  color: var(--mute);
+  background: rgba(10, 10, 18, 0.8);
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  pointer-events: none;
+}
+
+/* ==========================================
+   LIGHTBOX / FULLSCREEN 4K MODAL
+   ========================================== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(3, 3, 7, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 3vw;
+}
+.lightbox.open {
+  display: flex;
+}
+.lightbox-dialog {
+  max-width: 1200px;
+  max-height: 92vh;
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+  position: relative;
+}
+.lightbox-header {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  background: rgba(7,7,13,0.6);
+}
+.lightbox-title-wrap h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+.lightbox-title-wrap span {
+  font-size: 12px;
+  color: var(--gold);
+  font-family: 'JetBrains Mono', monospace;
+}
+.lightbox-close {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+}
+.lightbox-close:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.lightbox-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  overflow: hidden;
+  min-height: 480px;
+  position: relative;
+}
+.lightbox-body img,
+.lightbox-body video {
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+}
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(7,7,13,0.75);
+  border: 1px solid var(--line);
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+  z-index: 10;
+}
+.lightbox-nav:hover {
+  background: var(--gold);
+  color: #000;
+}
+.lightbox-prev { left: 16px; }
+.lightbox-next { right: 16px; }
+.lightbox-caption {
+  padding: 12px 20px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--mute);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: #07070d !important;
+    color: #f5f3ee !important;
+    overflow: visible !important;
+  }
+  #viewport {
+    position: static !important;
+    overflow: visible !important;
+    background: none !important;
+  }
+  #canvasWorld {
+    position: static !important;
+    transform: none !important;
+    width: 100% !important;
+    padding: 0 !important;
+    gap: 30px !important;
+  }
+  .top-hud, .bottom-tools, .tool-tip, .lightbox {
+    display: none !important;
+  }
+  .board-frame, .brand-guidelines-frame {
+    break-inside: avoid !important;
+    box-shadow: none !important;
+  }
+  .frame-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .board-card {
+    break-inside: avoid !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP FLOATING HUD -->
+<nav class="top-hud">
+  <a href="../index.html" class="hud-logo">at the atelier<span>.</span>canvas</a>
+  
+  <div class="hud-frames">
+    <button class="frame-jump-btn active" onclick="zoomToFrame('brand-guidelines')">01 Brand Guide</button>
+    <button class="frame-jump-btn" onclick="zoomToFrame('frame-lookdev')">02 3D LookDev</button>
+    <button class="frame-jump-btn" onclick="zoomToFrame('frame-motion')">03 Motion</button>
+    <button class="frame-jump-btn" onclick="zoomToFrame('frame-saas')">04 Configurator</button>
+    <button class="frame-jump-btn" onclick="zoomToFrame('frame-art')">05 Art Direction</button>
+  </div>
+
+  <div class="hud-divider"></div>
+
+  <div class="hud-actions">
+    <button class="hud-btn" onclick="prevFrame()">◀ Prev</button>
+    <button class="hud-btn" onclick="nextFrame()">Next ▶</button>
+    <button class="hud-btn" onclick="fitAll()">⊡ Fit All</button>
+    <button class="hud-btn" id="themeBtn">◑ Theme</button>
+    <a href="../index.html" class="hud-btn">Deck ↗</a>
+  </div>
+</nav>
+
+<!-- BROWSABLE MIRO CANVAS VIEWPORT -->
+<div id="viewport">
+  <div id="canvasWorld">
+
+    <!-- ==========================================
+         FRAME 01: BRAND & STYLE GUIDELINES (TOP)
+         ========================================== -->
+    <div class="brand-guidelines-frame" id="brand-guidelines">
+      <div class="bg-header">
+        <div>
+          <div class="bg-eye">FRAME 01 · SYSTEM STANDARDS</div>
+          <h1 class="bg-title">Brand &amp; Style Guidelines</h1>
+        </div>
+        <p class="bg-subtitle">Visual tokens, typography hierarchy, and unbiased 3D lookdev standards aligned directly with the <b>At the Atelier</b> pitch deck.</p>
+      </div>
+
+      <div class="guidelines-grid">
+        <!-- 1. Color Palette Tokens -->
+        <div class="guide-card">
+          <div class="guide-head">
+            <h3>Luxury Palette Tokens</h3>
+            <span class="guide-badge">HEX CODES</span>
+          </div>
+          <div class="swatches-row">
+            <div class="swatch-col">
+              <div class="swatch-box" style="background:#1c1a54;"></div>
+              <span class="swatch-name">Royal Navy</span>
+              <span class="swatch-hex">#1C1A54</span>
+            </div>
+            <div class="swatch-col">
+              <div class="swatch-box" style="background:#c9a96e;"></div>
+              <span class="swatch-name">Champagne</span>
+              <span class="swatch-hex">#C9A96E</span>
+            </div>
+            <div class="swatch-col">
+              <div class="swatch-box" style="background:#f8f6f2;"></div>
+              <span class="swatch-name" style="color:#ded8cb">Ivory White</span>
+              <span class="swatch-hex">#F8F6F2</span>
+            </div>
+            <div class="swatch-col">
+              <div class="swatch-box" style="background:#07070d;border-color:#333;"></div>
+              <span class="swatch-name">Obsidian</span>
+              <span class="swatch-hex">#07070D</span>
+            </div>
+            <div class="swatch-col">
+              <div class="swatch-box" style="background:#dce2ea;"></div>
+              <span class="swatch-name" style="color:#dce2ea">Platinum</span>
+              <span class="swatch-hex">#DCE2EA</span>
+            </div>
+          </div>
+          <p style="font-size:12px;color:var(--mute)">Calibrated for high-contrast counter tablet legibility and dark-field cinema projection.</p>
+        </div>
+
+        <!-- 2. Typography System -->
+        <div class="guide-card">
+          <div class="guide-head">
+            <h3>Typography Hierarchy</h3>
+            <span class="guide-badge">FONTS</span>
+          </div>
+          <div class="type-specimen">
+            <div class="specimen-row">
+              <span class="specimen-font">Inter Tight · 800</span>
+              <span class="specimen-usage">Headings &amp; Titles</span>
+            </div>
+            <div class="specimen-row">
+              <span class="specimen-font" style="font-weight:500;font-size:15px">Inter Tight · 500</span>
+              <span class="specimen-usage">Body &amp; Descriptions</span>
+            </div>
+            <div class="specimen-row">
+              <span class="specimen-mono">JetBrains Mono</span>
+              <span class="specimen-usage">CAD, Specs &amp; Pin IDs</span>
+            </div>
+          </div>
+          <p style="font-size:12px;color:var(--mute)">Tight letter-spacing (-0.03em) delivering contemporary Parisian luxury maison character.</p>
+        </div>
+
+        <!-- 3. 3D & Motion Production Standards -->
+        <div class="guide-card">
+          <div class="guide-head">
+            <h3>Production Standards</h3>
+            <span class="guide-badge">3D &amp; MOTION</span>
+          </div>
+          <div class="specs-list">
+            <div class="spec-item">
+              <span>Raytracing Engine</span>
+              <span>Unbiased Path Tracer</span>
+            </div>
+            <div class="spec-item">
+              <span>Diamond Dispersion</span>
+              <span>Abbe 55.3 Spectral Fire</span>
+            </div>
+            <div class="spec-item">
+              <span>Studio Lighting</span>
+              <span>Curved Strip Softboxes</span>
+            </div>
+            <div class="spec-item">
+              <span>Motion Physics</span>
+              <span>cubic-bezier(0.34, 1.56)</span>
+            </div>
+            <div class="spec-item">
+              <span>Acoustic Snap Sync</span>
+              <span>-14 LUFS Tactile Tick</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         CLUSTERS 02–05: 39 CURATED MEDIA ASSETS
+         ========================================== -->
+    
+        <div class="board-frame" id="frame-lookdev">
+          <div class="frame-header">
+            <div class="frame-tag">OPTICAL BENCHMARKS</div>
+            <div class="frame-title-row">
+              <span class="frame-num">02</span>
+              <h2 class="frame-title">3D Jewellery LookDev & Raytracing</h2>
+            </div>
+            <p class="frame-desc">Unbiased path-traced diamond caustics, Abbe 55.3 dispersion, and precious metal shaders.</p>
+          </div>
+          <div class="frame-grid">
+            
+            <div class="board-card" data-idx="0" onclick="openLightbox(0)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/ArtemiuLebedev_ssspin.io_1791938454.mp4" poster="Assets/posters/ArtemiuLebedev_ssspin.io_1791938454.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#LEBEDEV · HERO RING</span>
+                <h4 class="card-title">3D Solitaire Web Concept</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="1" onclick="openLightbox(1)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785622782.mp4" poster="Assets/posters/888194357785622782.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622782 · STUDIO SPECULAR</span>
+                <h4 class="card-title">Dark-Field Lighting Curves</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="2" onclick="openLightbox(2)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/AQPPfZqZPPhgeKTSb7tlfBa-2XUFwnZ0NXhrxdbsvLOSwoCP-hNohg0Kg3Ti5HfaE3fK84gpL5mLgboZ-axvMmndTFsYK9oYdcOnh9E.mp4" poster="Assets/posters/AQPPfZqZPPhgeKTSb7tlfBa-2XUFwnZ0NXhrxdbsvLOSwoCP-hNohg0Kg3Ti5HfaE3fK84gpL5mLgboZ-axvMmndTFsYK9oYdcOnh9E.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#CUTS · ASSCHER / OVAL / ROUND</span>
+                <h4 class="card-title">Radial Stone Cut Array</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="3" onclick="openLightbox(3)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/SnapInsta.to_AQPIjh5Z1ZUxoqDSi9_Jqb1VSnzcGcfndF_1grIDu3wOsfx5I8J62qV70OF9O6_vBHpw28JLA59r7foH5IPXkZflqLRppVEzIOJenq0.mp4" poster="Assets/posters/SnapInsta.to_AQPIjh5Z1ZUxoqDSi9_Jqb1VSnzcGcfndF_1grIDu3wOsfx5I8J62qV70OF9O6_vBHpw28JLA59r7foH5IPXkZflqLRppVEzIOJenq0.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#SNAP · ABBE 55.3 REFRACTION</span>
+                <h4 class="card-title">Solitaire Spin & Abbe Fire</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="4" onclick="openLightbox(4)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/user_lolhe0807_ssspin.io_1791938790 (1).mp4" poster="Assets/posters/user_lolhe0807_ssspin.io_1791938790 (1).jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#LOLHE · 6-PRONG CLAW FIT</span>
+                <h4 class="card-title">Diamond Pavilion & Prongs</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="5" onclick="openLightbox(5)">
+              
+                <div class="card-media tall">
+                  <img src="Assets/888194357785622446.jpg" alt="3/4 Beauty Angle Deceleration" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622446 · CAMERA ORBIT</span>
+                <h4 class="card-title">3/4 Beauty Angle Deceleration</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="6" onclick="openLightbox(6)">
+              
+                <div class="card-media square">
+                  <img src="Assets/888194357785622496.jpg" alt="Micro-Parallax on CAD Mesh" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622496 · PRONG BEVEL</span>
+                <h4 class="card-title">Micro-Parallax on CAD Mesh</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="7" onclick="openLightbox(7)">
+              
+                <div class="card-media tall">
+                  <img src="Assets/888194357785622507_sp0_b0.jpg" alt="Luxury Product Staging" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622507 · STUDIO VELVET</span>
+                <h4 class="card-title">Luxury Product Staging</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="8" onclick="openLightbox(8)">
+              
+                <div class="card-media tall">
+                  <img src="Assets/888194357785622405.jpg" alt="2.39:1 Anamorphic Halo Ring" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622405 · CINEMATIC FRAME</span>
+                <h4 class="card-title">2.39:1 Anamorphic Halo Ring</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="9" onclick="openLightbox(9)">
+              
+                <div class="card-media tall">
+                  <img src="Assets/888194357785622422.jpg" alt="Magnetic Snap Mechanism" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622422 · CNC FIT TOLERANCE</span>
+                <h4 class="card-title">Magnetic Snap Mechanism</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="10" onclick="openLightbox(10)">
+              
+                <div class="card-media tall">
+                  <img src="Assets/888194357785622540_sp0_b0.jpg" alt="Acoustic Haptic Tick Sync" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622540 · -14 LUFS AUDIO</span>
+                <h4 class="card-title">Acoustic Haptic Tick Sync</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="11" onclick="openLightbox(11)">
+              
+                <div class="card-media tall">
+                  <img src="Assets/888194357785622429.jpg" alt="Dual-Screen Cloud Sync" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622429 · WEBSOCKET CAD</span>
+                <h4 class="card-title">Dual-Screen Cloud Sync</h4>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+        <div class="board-frame" id="frame-motion">
+          <div class="frame-header">
+            <div class="frame-tag">PHYSICS & TRANSITIONS</div>
+            <div class="frame-title-row">
+              <span class="frame-num">03</span>
+              <h2 class="frame-title">Motion Choreography & Spring Easing</h2>
+            </div>
+            <p class="frame-desc">Spring-physics easing curves, zero-latency sliders, and fluid gesture choreography.</p>
+          </div>
+          <div class="frame-grid">
+            
+            <div class="board-card" data-idx="12" onclick="openLightbox(12)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/vistoraclub_1791938084.mp4" poster="Assets/posters/vistoraclub_1791938084.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#VISTORA · CUBIC-BEZIER</span>
+                <h4 class="card-title">Spring Easing Curves</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="13" onclick="openLightbox(13)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785622418.mp4" poster="Assets/posters/888194357785622418.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622418 · DAMPED MOTION</span>
+                <h4 class="card-title">Dynamic Spring Transitions</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="14" onclick="openLightbox(14)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785622443.mp4" poster="Assets/posters/888194357785622443.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622443 · PERSPECTIVE TILT</span>
+                <h4 class="card-title">Spatial 2.5D Card Depth</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="15" onclick="openLightbox(15)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785622471.mp4" poster="Assets/posters/888194357785622471.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622471 · GOLD ⇄ PLATINUM</span>
+                <h4 class="card-title">0.3s Metal Shader Wipe</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="16" onclick="openLightbox(16)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785622500.mp4" poster="Assets/posters/888194357785622500.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622500 · SHAPE SORTING</span>
+                <h4 class="card-title">Zero-Latency Card Filter</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="17" onclick="openLightbox(17)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785622524.mp4" poster="Assets/posters/888194357785622524.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622524 · TRAY NAVIGATION</span>
+                <h4 class="card-title">60 FPS Momentum Carousel</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="18" onclick="openLightbox(18)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785622622.mp4" poster="Assets/posters/888194357785622622.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622622 · STATE CHOREOGRAPHY</span>
+                <h4 class="card-title">Tactile Toggle & Color Sweep</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="19" onclick="openLightbox(19)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785623054.mp4" poster="Assets/posters/888194357785623054.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#623054 · FLIP ANIMATION</span>
+                <h4 class="card-title">Head & Shank Reordering</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="20" onclick="openLightbox(20)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785623799.mp4" poster="Assets/posters/888194357785623799.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#623799 · REAL-TIME PRICING</span>
+                <h4 class="card-title">Carat Slider Odometer</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="21" onclick="openLightbox(21)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785628983.mp4" poster="Assets/posters/888194357785628983.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#628983 · 360° EASE</span>
+                <h4 class="card-title">Continuous Orbital Pan</h4>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+        <div class="board-frame" id="frame-saas">
+          <div class="frame-header">
+            <div class="frame-tag">COUNTER DIGITAL TOUCHPOINTS</div>
+            <div class="frame-title-row">
+              <span class="frame-num">04</span>
+              <h2 class="frame-title">SaaS Configurator & In-Store UI</h2>
+            </div>
+            <p class="frame-desc">Technical HUD hierarchy, diamond certification badges, and tablet touch ergonomics.</p>
+          </div>
+          <div class="frame-grid">
+            
+            <div class="board-card" data-idx="22" onclick="openLightbox(22)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/ElevenLabs.mp4" poster="Assets/posters/ElevenLabs.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#ELEVEN · DARK-MODE SaaS</span>
+                <h4 class="card-title">Technical HUD Hierarchy</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="23" onclick="openLightbox(23)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785623116.mp4" poster="Assets/posters/888194357785623116.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#623116 · IGI CERT SPECS</span>
+                <h4 class="card-title">Minimalist Data Cards</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="24" onclick="openLightbox(24)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/qclaydesign_ssspin.io_1791939244.mp4" poster="Assets/posters/qclaydesign_ssspin.io_1791939244.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#QCLAY · WEBSHOP CUSTOMIZER</span>
+                <h4 class="card-title">Interactive 3D Ring Studio</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="25" onclick="openLightbox(25)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/sandrew1087_ssspin.io_1791938741.mp4" poster="Assets/posters/sandrew1087_ssspin.io_1791938741.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#SANDREW · TABLET UX</span>
+                <h4 class="card-title">Counter Co-Design Workflow</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="26" onclick="openLightbox(26)">
+              
+                <div class="card-media tall">
+                  <img src="Assets/888194357785623113.jpg" alt="Kinetic Button Snapping" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#623113 · 0.97 TOUCH SCALE</span>
+                <h4 class="card-title">Kinetic Button Snapping</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="27" onclick="openLightbox(27)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785622585.mp4" poster="Assets/posters/888194357785622585.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622585 · EDITORIAL HUD</span>
+                <h4 class="card-title">Typographic Hierarchy</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="28" onclick="openLightbox(28)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/SnapInsta.to_AQMHRWSwp2ZZx_dM2m8Sxd7zEWs1bu6Lj_bf-s0x2KLRcOwHfZAcnxM_frcrEY4MqFZC61FcJJy-X4vF-6YmhUq8z2xWEK0hD1oxe4w.mp4" poster="Assets/posters/SnapInsta.to_AQMHRWSwp2ZZx_dM2m8Sxd7zEWs1bu6Lj_bf-s0x2KLRcOwHfZAcnxM_frcrEY4MqFZC61FcJJy-X4vF-6YmhUq8z2xWEK0hD1oxe4w.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#SNAP · UNBOXING PRESTIGE</span>
+                <h4 class="card-title">Luxury Packaging Reveal</h4>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+        <div class="board-frame" id="frame-art">
+          <div class="frame-header">
+            <div class="frame-tag">HERITAGE & MATHEMATICAL BEAUTY</div>
+            <div class="frame-title-row">
+              <span class="frame-num">05</span>
+              <h2 class="frame-title">Art Direction & Facet Blueprint</h2>
+            </div>
+            <p class="frame-desc">Fluid dynamics, precious gold molten simulations, and master Hearts & Arrows cutting blueprints.</p>
+          </div>
+          <div class="frame-grid">
+            
+            <div class="board-card" data-idx="29" onclick="openLightbox(29)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/AQOgisuxeRfjo-cd_kf0cS6s8-ucWCtHKdEvH4SdLfN5qq2YyywPKeGndiDQBw5jxWdDajYmvJDmU7hzhd8_lRwbXAJI6mcWBPy1dps.mp4" poster="Assets/posters/AQOgisuxeRfjo-cd_kf0cS6s8-ucWCtHKdEvH4SdLfN5qq2YyywPKeGndiDQBw5jxWdDajYmvJDmU7hzhd8_lRwbXAJI6mcWBPy1dps.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#FLUID · VISCOUS GOLD SIM</span>
+                <h4 class="card-title">Molten 18K Gold Reveal</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="30" onclick="openLightbox(30)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/blumealc_ssspin.io_1791938227.mp4" poster="Assets/posters/blumealc_ssspin.io_1791938227.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#BLUME · FABRIC DRAPING</span>
+                <h4 class="card-title">Champagne Silk Dynamics</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="31" onclick="openLightbox(31)">
+              
+                <div class="card-media tall">
+                  <video src="Assets/888194357785622453.mp4" poster="Assets/posters/888194357785622453.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <span class="card-badge vid">▶ Loop</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622453 · MONOCHROME LUXURY</span>
+                <h4 class="card-title">Dark Aesthetic Balancing</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="32" onclick="openLightbox(32)">
+              
+                <div class="card-media square">
+                  <img src="Assets/888194357785622534_c0.jpg" alt="Hearts & Arrows Symmetry" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622534 · CUT OPTICS 01</span>
+                <h4 class="card-title">Hearts & Arrows Symmetry</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="33" onclick="openLightbox(33)">
+              
+                <div class="card-media square">
+                  <img src="Assets/888194357785622534_c1.jpg" alt="Crown & Pavilion Angle Grid" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622534 · CUT OPTICS 02</span>
+                <h4 class="card-title">Crown & Pavilion Angle Grid</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="34" onclick="openLightbox(34)">
+              
+                <div class="card-media square">
+                  <img src="Assets/888194357785622534_c2.jpg" alt="Triple Ex Ray Paths" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622534 · CUT OPTICS 03</span>
+                <h4 class="card-title">Triple Ex Ray Paths</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="35" onclick="openLightbox(35)">
+              
+                <div class="card-media square">
+                  <img src="Assets/888194357785622534_c3.jpg" alt="Cushion & Radiant Matrix" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622534 · CUT OPTICS 04</span>
+                <h4 class="card-title">Cushion & Radiant Matrix</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="36" onclick="openLightbox(36)">
+              
+                <div class="card-media square">
+                  <img src="Assets/888194357785622534_c4.jpg" alt="6-Prong Head Engineering" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622534 · CUT OPTICS 05</span>
+                <h4 class="card-title">6-Prong Head Engineering</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="37" onclick="openLightbox(37)">
+              
+                <div class="card-media square">
+                  <img src="Assets/888194357785622534_c5.jpg" alt="Emerald Step-Facet Angles" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622534 · CUT OPTICS 06</span>
+                <h4 class="card-title">Emerald Step-Facet Angles</h4>
+              </div>
+            </div>
+            
+
+            <div class="board-card" data-idx="38" onclick="openLightbox(38)">
+              
+                <div class="card-media square">
+                  <img src="Assets/888194357785622534_c6.jpg" alt="Master Symmetry Blueprint" loading="lazy">
+                  <span class="card-badge img">Photo</span>
+                </div>
+                
+              <div class="card-info">
+                <span class="card-tag">#622534 · CUT OPTICS 07</span>
+                <h4 class="card-title">Master Symmetry Blueprint</h4>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+
+  </div>
+</div>
+
+<!-- BOTTOM-RIGHT ZOOM TOOLBAR -->
+<div class="bottom-tools">
+  <button class="tool-btn" onclick="zoomIn()" title="Zoom In (+)">＋</button>
+  <span class="zoom-val" id="zoomPercent">100%</span>
+  <button class="tool-btn" onclick="zoomOut()" title="Zoom Out (−)">－</button>
+  <div style="width:1px;height:18px;background:var(--line)"></div>
+  <button class="tool-btn" onclick="resetZoom()" title="Reset (100%)">1:1</button>
+  <button class="tool-btn" onclick="fitAll()" title="Fit to View">⊡</button>
+  <button class="tool-btn" onclick="toggleFullscreen()" title="Fullscreen">⛶</button>
+</div>
+
+<div class="tool-tip">
+  <span>💡 Drag canvas to pan · Scroll to zoom · Click cards for 4K viewer</span>
+</div>
+
+<!-- LIGHTBOX MODAL -->
+<div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
+  <div class="lightbox-dialog" onclick="event.stopPropagation()">
+    <div class="lightbox-header">
+      <div class="lightbox-title-wrap">
+        <h3 id="lbTitle">Title</h3>
+        <span id="lbTag">Tag</span>
+      </div>
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    </div>
+    <div class="lightbox-body" id="lbBody">
+      <button class="lightbox-nav lightbox-prev" onclick="prevItem(event)">&#10094;</button>
+      <button class="lightbox-nav lightbox-next" onclick="nextItem(event)">&#10095;</button>
+    </div>
+    <div class="lightbox-caption">
+      <span id="lbIndex">1 of 39</span>
+      <span style="font-size:11px;color:var(--gold);font-family:'JetBrains Mono'">ESC to close · Arrow keys to navigate</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Flattened items for Lightbox
+const mediaItems = [{"file": "ArtemiuLebedev_ssspin.io_1791938454.mp4", "type": "video", "poster": "posters/ArtemiuLebedev_ssspin.io_1791938454.jpg", "title": "3D Solitaire Web Concept", "tag": "#LEBEDEV \u00b7 HERO RING", "aspect": "tall"}, {"file": "888194357785622782.mp4", "type": "video", "poster": "posters/888194357785622782.jpg", "title": "Dark-Field Lighting Curves", "tag": "#622782 \u00b7 STUDIO SPECULAR", "aspect": "tall"}, {"file": "AQPPfZqZPPhgeKTSb7tlfBa-2XUFwnZ0NXhrxdbsvLOSwoCP-hNohg0Kg3Ti5HfaE3fK84gpL5mLgboZ-axvMmndTFsYK9oYdcOnh9E.mp4", "type": "video", "poster": "posters/AQPPfZqZPPhgeKTSb7tlfBa-2XUFwnZ0NXhrxdbsvLOSwoCP-hNohg0Kg3Ti5HfaE3fK84gpL5mLgboZ-axvMmndTFsYK9oYdcOnh9E.jpg", "title": "Radial Stone Cut Array", "tag": "#CUTS \u00b7 ASSCHER / OVAL / ROUND", "aspect": "tall"}, {"file": "SnapInsta.to_AQPIjh5Z1ZUxoqDSi9_Jqb1VSnzcGcfndF_1grIDu3wOsfx5I8J62qV70OF9O6_vBHpw28JLA59r7foH5IPXkZflqLRppVEzIOJenq0.mp4", "type": "video", "poster": "posters/SnapInsta.to_AQPIjh5Z1ZUxoqDSi9_Jqb1VSnzcGcfndF_1grIDu3wOsfx5I8J62qV70OF9O6_vBHpw28JLA59r7foH5IPXkZflqLRppVEzIOJenq0.jpg", "title": "Solitaire Spin & Abbe Fire", "tag": "#SNAP \u00b7 ABBE 55.3 REFRACTION", "aspect": "tall"}, {"file": "user_lolhe0807_ssspin.io_1791938790 (1).mp4", "type": "video", "poster": "posters/user_lolhe0807_ssspin.io_1791938790 (1).jpg", "title": "Diamond Pavilion & Prongs", "tag": "#LOLHE \u00b7 6-PRONG CLAW FIT", "aspect": "tall"}, {"file": "888194357785622446.jpg", "type": "image", "title": "3/4 Beauty Angle Deceleration", "tag": "#622446 \u00b7 CAMERA ORBIT", "aspect": "tall"}, {"file": "888194357785622496.jpg", "type": "image", "title": "Micro-Parallax on CAD Mesh", "tag": "#622496 \u00b7 PRONG BEVEL", "aspect": "square"}, {"file": "888194357785622507_sp0_b0.jpg", "type": "image", "title": "Luxury Product Staging", "tag": "#622507 \u00b7 STUDIO VELVET", "aspect": "tall"}, {"file": "888194357785622405.jpg", "type": "image", "title": "2.39:1 Anamorphic Halo Ring", "tag": "#622405 \u00b7 CINEMATIC FRAME", "aspect": "tall"}, {"file": "888194357785622422.jpg", "type": "image", "title": "Magnetic Snap Mechanism", "tag": "#622422 \u00b7 CNC FIT TOLERANCE", "aspect": "tall"}, {"file": "888194357785622540_sp0_b0.jpg", "type": "image", "title": "Acoustic Haptic Tick Sync", "tag": "#622540 \u00b7 -14 LUFS AUDIO", "aspect": "tall"}, {"file": "888194357785622429.jpg", "type": "image", "title": "Dual-Screen Cloud Sync", "tag": "#622429 \u00b7 WEBSOCKET CAD", "aspect": "tall"}, {"file": "vistoraclub_1791938084.mp4", "type": "video", "poster": "posters/vistoraclub_1791938084.jpg", "title": "Spring Easing Curves", "tag": "#VISTORA \u00b7 CUBIC-BEZIER", "aspect": "tall"}, {"file": "888194357785622418.mp4", "type": "video", "poster": "posters/888194357785622418.jpg", "title": "Dynamic Spring Transitions", "tag": "#622418 \u00b7 DAMPED MOTION", "aspect": "tall"}, {"file": "888194357785622443.mp4", "type": "video", "poster": "posters/888194357785622443.jpg", "title": "Spatial 2.5D Card Depth", "tag": "#622443 \u00b7 PERSPECTIVE TILT", "aspect": "tall"}, {"file": "888194357785622471.mp4", "type": "video", "poster": "posters/888194357785622471.jpg", "title": "0.3s Metal Shader Wipe", "tag": "#622471 \u00b7 GOLD \u21c4 PLATINUM", "aspect": "tall"}, {"file": "888194357785622500.mp4", "type": "video", "poster": "posters/888194357785622500.jpg", "title": "Zero-Latency Card Filter", "tag": "#622500 \u00b7 SHAPE SORTING", "aspect": "tall"}, {"file": "888194357785622524.mp4", "type": "video", "poster": "posters/888194357785622524.jpg", "title": "60 FPS Momentum Carousel", "tag": "#622524 \u00b7 TRAY NAVIGATION", "aspect": "tall"}, {"file": "888194357785622622.mp4", "type": "video", "poster": "posters/888194357785622622.jpg", "title": "Tactile Toggle & Color Sweep", "tag": "#622622 \u00b7 STATE CHOREOGRAPHY", "aspect": "tall"}, {"file": "888194357785623054.mp4", "type": "video", "poster": "posters/888194357785623054.jpg", "title": "Head & Shank Reordering", "tag": "#623054 \u00b7 FLIP ANIMATION", "aspect": "tall"}, {"file": "888194357785623799.mp4", "type": "video", "poster": "posters/888194357785623799.jpg", "title": "Carat Slider Odometer", "tag": "#623799 \u00b7 REAL-TIME PRICING", "aspect": "tall"}, {"file": "888194357785628983.mp4", "type": "video", "poster": "posters/888194357785628983.jpg", "title": "Continuous Orbital Pan", "tag": "#628983 \u00b7 360\u00b0 EASE", "aspect": "tall"}, {"file": "ElevenLabs.mp4", "type": "video", "poster": "posters/ElevenLabs.jpg", "title": "Technical HUD Hierarchy", "tag": "#ELEVEN \u00b7 DARK-MODE SaaS", "aspect": "tall"}, {"file": "888194357785623116.mp4", "type": "video", "poster": "posters/888194357785623116.jpg", "title": "Minimalist Data Cards", "tag": "#623116 \u00b7 IGI CERT SPECS", "aspect": "tall"}, {"file": "qclaydesign_ssspin.io_1791939244.mp4", "type": "video", "poster": "posters/qclaydesign_ssspin.io_1791939244.jpg", "title": "Interactive 3D Ring Studio", "tag": "#QCLAY \u00b7 WEBSHOP CUSTOMIZER", "aspect": "tall"}, {"file": "sandrew1087_ssspin.io_1791938741.mp4", "type": "video", "poster": "posters/sandrew1087_ssspin.io_1791938741.jpg", "title": "Counter Co-Design Workflow", "tag": "#SANDREW \u00b7 TABLET UX", "aspect": "tall"}, {"file": "888194357785623113.jpg", "type": "image", "title": "Kinetic Button Snapping", "tag": "#623113 \u00b7 0.97 TOUCH SCALE", "aspect": "tall"}, {"file": "888194357785622585.mp4", "type": "video", "poster": "posters/888194357785622585.jpg", "title": "Typographic Hierarchy", "tag": "#622585 \u00b7 EDITORIAL HUD", "aspect": "tall"}, {"file": "SnapInsta.to_AQMHRWSwp2ZZx_dM2m8Sxd7zEWs1bu6Lj_bf-s0x2KLRcOwHfZAcnxM_frcrEY4MqFZC61FcJJy-X4vF-6YmhUq8z2xWEK0hD1oxe4w.mp4", "type": "video", "poster": "posters/SnapInsta.to_AQMHRWSwp2ZZx_dM2m8Sxd7zEWs1bu6Lj_bf-s0x2KLRcOwHfZAcnxM_frcrEY4MqFZC61FcJJy-X4vF-6YmhUq8z2xWEK0hD1oxe4w.jpg", "title": "Luxury Packaging Reveal", "tag": "#SNAP \u00b7 UNBOXING PRESTIGE", "aspect": "tall"}, {"file": "AQOgisuxeRfjo-cd_kf0cS6s8-ucWCtHKdEvH4SdLfN5qq2YyywPKeGndiDQBw5jxWdDajYmvJDmU7hzhd8_lRwbXAJI6mcWBPy1dps.mp4", "type": "video", "poster": "posters/AQOgisuxeRfjo-cd_kf0cS6s8-ucWCtHKdEvH4SdLfN5qq2YyywPKeGndiDQBw5jxWdDajYmvJDmU7hzhd8_lRwbXAJI6mcWBPy1dps.jpg", "title": "Molten 18K Gold Reveal", "tag": "#FLUID \u00b7 VISCOUS GOLD SIM", "aspect": "tall"}, {"file": "blumealc_ssspin.io_1791938227.mp4", "type": "video", "poster": "posters/blumealc_ssspin.io_1791938227.jpg", "title": "Champagne Silk Dynamics", "tag": "#BLUME \u00b7 FABRIC DRAPING", "aspect": "tall"}, {"file": "888194357785622453.mp4", "type": "video", "poster": "posters/888194357785622453.jpg", "title": "Dark Aesthetic Balancing", "tag": "#622453 \u00b7 MONOCHROME LUXURY", "aspect": "tall"}, {"file": "888194357785622534_c0.jpg", "type": "image", "title": "Hearts & Arrows Symmetry", "tag": "#622534 \u00b7 CUT OPTICS 01", "aspect": "square"}, {"file": "888194357785622534_c1.jpg", "type": "image", "title": "Crown & Pavilion Angle Grid", "tag": "#622534 \u00b7 CUT OPTICS 02", "aspect": "square"}, {"file": "888194357785622534_c2.jpg", "type": "image", "title": "Triple Ex Ray Paths", "tag": "#622534 \u00b7 CUT OPTICS 03", "aspect": "square"}, {"file": "888194357785622534_c3.jpg", "type": "image", "title": "Cushion & Radiant Matrix", "tag": "#622534 \u00b7 CUT OPTICS 04", "aspect": "square"}, {"file": "888194357785622534_c4.jpg", "type": "image", "title": "6-Prong Head Engineering", "tag": "#622534 \u00b7 CUT OPTICS 05", "aspect": "square"}, {"file": "888194357785622534_c5.jpg", "type": "image", "title": "Emerald Step-Facet Angles", "tag": "#622534 \u00b7 CUT OPTICS 06", "aspect": "square"}, {"file": "888194357785622534_c6.jpg", "type": "image", "title": "Master Symmetry Blueprint", "tag": "#622534 \u00b7 CUT OPTICS 07", "aspect": "square"}];
+const assetsRelPrefix = "Assets/";
+let currentIdx = 0;
+
+// Miro Canvas Pan & Zoom State
+let scale = 0.85;
+let panX = 40;
+let panY = 20;
+let isDragging = false;
+let startX, startY;
+
+const viewport = document.getElementById('viewport');
+const world = document.getElementById('canvasWorld');
+const zoomPercent = document.getElementById('zoomPercent');
+
+function updateTransform() {
+  world.style.transform = `translate(${panX}px, ${panY}px) scale(${scale})`;
+  zoomPercent.textContent = `${Math.round(scale * 100)}%`;
+}
+
+// Initial positioning: Fit to screen nicely
+function fitAll() {
+  const vw = viewport.clientWidth;
+  const worldW = 1760;
+  scale = Math.min(0.85, Math.max(0.35, vw / worldW));
+  panX = Math.max(20, (vw - worldW * scale) / 2);
+  panY = 60;
+  updateTransform();
+}
+
+function resetZoom() {
+  scale = 1.0;
+  panX = 60;
+  panY = 60;
+  updateTransform();
+}
+
+function zoomIn() {
+  scale = Math.min(2.0, scale * 1.2);
+  updateTransform();
+}
+
+function zoomOut() {
+  scale = Math.max(0.25, scale / 1.2);
+  updateTransform();
+}
+
+// Wheel Zoom (Zoom around mouse cursor)
+viewport.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const rect = viewport.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
+
+  const prevScale = scale;
+  const delta = e.deltaY < 0 ? 1.12 : 0.89;
+  scale = Math.min(2.2, Math.max(0.25, scale * delta));
+
+  // Adjust pan to zoom into cursor point
+  panX = mouseX - (mouseX - panX) * (scale / prevScale);
+  panY = mouseY - (mouseY - panY) * (scale / prevScale);
+
+  updateTransform();
+}, { passive: false });
+
+// Pan on Drag
+viewport.addEventListener('mousedown', (e) => {
+  if (e.target.closest('.board-card') || e.target.closest('.guide-card') || e.target.closest('.top-hud') || e.target.closest('.bottom-tools')) {
+    return;
+  }
+  isDragging = true;
+  viewport.classList.add('grabbing');
+  startX = e.clientX - panX;
+  startY = e.clientY - panY;
+});
+
+window.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  panX = e.clientX - startX;
+  panY = e.clientY - startY;
+  updateTransform();
+});
+
+window.addEventListener('mouseup', () => {
+  isDragging = false;
+  viewport.classList.remove('grabbing');
+});
+
+// Touch gestures (Pinch to zoom & pan)
+let initialTouchDist = 0;
+let initialScale = scale;
+viewport.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 2) {
+    initialTouchDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    initialScale = scale;
+  } else if (e.touches.length === 1) {
+    isDragging = true;
+    startX = e.touches[0].clientX - panX;
+    startY = e.touches[0].clientY - panY;
+  }
+}, { passive: true });
+
+viewport.addEventListener('touchmove', (e) => {
+  if (e.touches.length === 2 && initialTouchDist > 0) {
+    const currentDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    const factor = currentDist / initialTouchDist;
+    scale = Math.min(2.2, Math.max(0.25, initialScale * factor));
+    updateTransform();
+  } else if (e.touches.length === 1 && isDragging) {
+    panX = e.touches[0].clientX - startX;
+    panY = e.touches[0].clientY - startY;
+    updateTransform();
+  }
+}, { passive: true });
+
+viewport.addEventListener('touchend', () => {
+  isDragging = false;
+  initialTouchDist = 0;
+});
+
+// Frame Jump Animation
+const frameIds = ['brand-guidelines', 'frame-lookdev', 'frame-motion', 'frame-saas', 'frame-art'];
+let currentFrameIdx = 0;
+
+function zoomToFrame(id) {
+  const frameEl = document.getElementById(id);
+  if (!frameEl) return;
+
+  const idx = frameIds.indexOf(id);
+  if (idx !== -1) currentFrameIdx = idx;
+
+  document.querySelectorAll('.frame-jump-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === currentFrameIdx);
+  });
+
+  const vw = viewport.clientWidth;
+  const vh = viewport.clientHeight;
+  const fw = frameEl.offsetWidth;
+  const fh = frameEl.offsetHeight;
+  const fx = frameEl.offsetLeft;
+  const fy = frameEl.offsetTop;
+
+  // Calculate target scale to fit the frame neatly
+  scale = Math.min(0.95, Math.max(0.35, Math.min(vw / (fw + 80), vh / (fh + 140))));
+  panX = (vw - fw * scale) / 2 - fx * scale;
+  panY = 90 - fy * scale;
+
+  world.style.transition = 'transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1)';
+  updateTransform();
+  setTimeout(() => {
+    world.style.transition = '';
+  }, 460);
+}
+
+function nextFrame() {
+  currentFrameIdx = (currentFrameIdx + 1) % frameIds.length;
+  zoomToFrame(frameIds[currentFrameIdx]);
+}
+
+function prevFrame() {
+  currentFrameIdx = (currentFrameIdx - 1 + frameIds.length) % frameIds.length;
+  zoomToFrame(frameIds[currentFrameIdx]);
+}
+
+// Keyboard Navigation
+window.addEventListener('keydown', (e) => {
+  const lb = document.getElementById('lightbox');
+  if (lb.classList.contains('open')) {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') prevItem();
+    if (e.key === 'ArrowRight') nextItem();
+    return;
+  }
+  if (e.key === 'ArrowRight' || e.key === 'PageDown') nextFrame();
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevFrame();
+  if (e.key === '+' || e.key === '=') zoomIn();
+  if (e.key === '-' || e.key === '_') zoomOut();
+  if (e.key === '0' || e.key === 'f') fitAll();
+  if (e.key === '1') zoomToFrame(frameIds[0]);
+  if (e.key === '2') zoomToFrame(frameIds[1]);
+  if (e.key === '3') zoomToFrame(frameIds[2]);
+  if (e.key === '4') zoomToFrame(frameIds[3]);
+  if (e.key === '5') zoomToFrame(frameIds[4]);
+});
+
+// Lightbox Modal
+function openLightbox(idx) {
+  currentIdx = idx;
+  const item = mediaItems[idx];
+  const lb = document.getElementById('lightbox');
+  const lbTitle = document.getElementById('lbTitle');
+  const lbTag = document.getElementById('lbTag');
+  const lbIndex = document.getElementById('lbIndex');
+  const lbBody = document.getElementById('lbBody');
+
+  lbTitle.textContent = item.title;
+  lbTag.textContent = item.tag;
+  lbIndex.textContent = `${idx + 1} of ${mediaItems.length}`;
+
+  const oldMedia = lbBody.querySelectorAll('img, video');
+  oldMedia.forEach(m => m.remove());
+
+  const src = assetsRelPrefix + item.file;
+  if (item.type === 'video') {
+    const vid = document.createElement('video');
+    vid.src = src;
+    vid.autoplay = true;
+    vid.loop = true;
+    vid.controls = true;
+    vid.playsInline = true;
+    lbBody.appendChild(vid);
+  } else {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = item.title;
+    lbBody.appendChild(img);
+  }
+
+  lb.classList.add('open');
+}
+
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  lb.classList.remove('open');
+  const vid = lb.querySelector('video');
+  if (vid) vid.pause();
+}
+
+function handleLightboxClick(e) {
+  if (e.target.id === 'lightbox') closeLightbox();
+}
+
+function prevItem(e) {
+  if (e) e.stopPropagation();
+  currentIdx = (currentIdx - 1 + mediaItems.length) % mediaItems.length;
+  openLightbox(currentIdx);
+}
+
+function nextItem(e) {
+  if (e) e.stopPropagation();
+  currentIdx = (currentIdx + 1) % mediaItems.length;
+  openLightbox(currentIdx);
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+
+// Theme Switcher
+const themeBtn = document.getElementById('themeBtn');
+themeBtn.addEventListener('click', () => {
+  const root = document.documentElement;
+  const current = root.getAttribute('data-theme');
+  root.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+});
+
+// Initialize fit on load
+window.addEventListener('load', () => {
+  fitAll();
+});
+window.addEventListener('resize', () => {
+  if (!isDragging) fitAll();
+});
+</script>
+</body>
+</html>
