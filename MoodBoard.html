@@ -441,15 +441,26 @@ html, body {
 .card-media.square {
   aspect-ratio: 1/1;
 }
-.card-media.wide {
-  aspect-ratio: 16/9;
-}
-.card-media img, .card-media video {
+.card-media img, .card-media video,
+.lightbox-body img, .lightbox-body video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   transition: transform .3s ease;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  pointer-events: auto;
+}
+video::-internal-media-controls-download-button,
+video::-webkit-media-controls-download-button {
+  display: none !important;
 }
 .board-card:hover .card-media img,
 .board-card:hover .card-media video {
@@ -865,7 +876,7 @@ html, body {
             <div class="board-card" data-idx="0" onclick="openLightbox(0)">
               
                 <div class="card-media tall">
-                  <video src="assets/ArtemiuLebedev_ssspin.io_1791938454.mp4" poster="assets/posters/ArtemiuLebedev_ssspin.io_1791938454.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/ArtemiuLebedev_ssspin.io_1791938454.mp4" poster="assets/posters/ArtemiuLebedev_ssspin.io_1791938454.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -879,7 +890,7 @@ html, body {
             <div class="board-card" data-idx="1" onclick="openLightbox(1)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785622782.mp4" poster="assets/posters/888194357785622782.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785622782.mp4" poster="assets/posters/888194357785622782.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -893,7 +904,7 @@ html, body {
             <div class="board-card" data-idx="2" onclick="openLightbox(2)">
               
                 <div class="card-media tall">
-                  <video src="assets/AQPPfZqZPPhgeKTSb7tlfBa-2XUFwnZ0NXhrxdbsvLOSwoCP-hNohg0Kg3Ti5HfaE3fK84gpL5mLgboZ-axvMmndTFsYK9oYdcOnh9E.mp4" poster="assets/posters/AQPPfZqZPPhgeKTSb7tlfBa-2XUFwnZ0NXhrxdbsvLOSwoCP-hNohg0Kg3Ti5HfaE3fK84gpL5mLgboZ-axvMmndTFsYK9oYdcOnh9E.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/AQPPfZqZPPhgeKTSb7tlfBa-2XUFwnZ0NXhrxdbsvLOSwoCP-hNohg0Kg3Ti5HfaE3fK84gpL5mLgboZ-axvMmndTFsYK9oYdcOnh9E.mp4" poster="assets/posters/AQPPfZqZPPhgeKTSb7tlfBa-2XUFwnZ0NXhrxdbsvLOSwoCP-hNohg0Kg3Ti5HfaE3fK84gpL5mLgboZ-axvMmndTFsYK9oYdcOnh9E.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -907,7 +918,7 @@ html, body {
             <div class="board-card" data-idx="3" onclick="openLightbox(3)">
               
                 <div class="card-media tall">
-                  <video src="assets/SnapInsta.to_AQPIjh5Z1ZUxoqDSi9_Jqb1VSnzcGcfndF_1grIDu3wOsfx5I8J62qV70OF9O6_vBHpw28JLA59r7foH5IPXkZflqLRppVEzIOJenq0.mp4" poster="assets/posters/SnapInsta.to_AQPIjh5Z1ZUxoqDSi9_Jqb1VSnzcGcfndF_1grIDu3wOsfx5I8J62qV70OF9O6_vBHpw28JLA59r7foH5IPXkZflqLRppVEzIOJenq0.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/SnapInsta.to_AQPIjh5Z1ZUxoqDSi9_Jqb1VSnzcGcfndF_1grIDu3wOsfx5I8J62qV70OF9O6_vBHpw28JLA59r7foH5IPXkZflqLRppVEzIOJenq0.mp4" poster="assets/posters/SnapInsta.to_AQPIjh5Z1ZUxoqDSi9_Jqb1VSnzcGcfndF_1grIDu3wOsfx5I8J62qV70OF9O6_vBHpw28JLA59r7foH5IPXkZflqLRppVEzIOJenq0.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -921,7 +932,7 @@ html, body {
             <div class="board-card" data-idx="4" onclick="openLightbox(4)">
               
                 <div class="card-media tall">
-                  <video src="assets/user_lolhe0807_ssspin.io_1791938790 (1).mp4" poster="assets/posters/user_lolhe0807_ssspin.io_1791938790 (1).jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/user_lolhe0807_ssspin.io_1791938790 (1).mp4" poster="assets/posters/user_lolhe0807_ssspin.io_1791938790 (1).jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -935,7 +946,7 @@ html, body {
             <div class="board-card" data-idx="5" onclick="openLightbox(5)">
               
                 <div class="card-media tall">
-                  <img src="assets/888194357785622446.jpg" alt="3/4 Beauty Angle Deceleration" loading="lazy">
+                  <img src="assets/888194357785622446.jpg" alt="3/4 Beauty Angle Deceleration" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -949,7 +960,7 @@ html, body {
             <div class="board-card" data-idx="6" onclick="openLightbox(6)">
               
                 <div class="card-media square">
-                  <img src="assets/888194357785622496.jpg" alt="Micro-Parallax on CAD Mesh" loading="lazy">
+                  <img src="assets/888194357785622496.jpg" alt="Micro-Parallax on CAD Mesh" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -963,7 +974,7 @@ html, body {
             <div class="board-card" data-idx="7" onclick="openLightbox(7)">
               
                 <div class="card-media tall">
-                  <img src="assets/888194357785622507_sp0_b0.jpg" alt="Luxury Product Staging" loading="lazy">
+                  <img src="assets/888194357785622507_sp0_b0.jpg" alt="Luxury Product Staging" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -977,7 +988,7 @@ html, body {
             <div class="board-card" data-idx="8" onclick="openLightbox(8)">
               
                 <div class="card-media tall">
-                  <img src="assets/888194357785622405.jpg" alt="2.39:1 Anamorphic Halo Ring" loading="lazy">
+                  <img src="assets/888194357785622405.jpg" alt="2.39:1 Anamorphic Halo Ring" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -991,7 +1002,7 @@ html, body {
             <div class="board-card" data-idx="9" onclick="openLightbox(9)">
               
                 <div class="card-media tall">
-                  <img src="assets/888194357785622422.jpg" alt="Magnetic Snap Mechanism" loading="lazy">
+                  <img src="assets/888194357785622422.jpg" alt="Magnetic Snap Mechanism" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1005,7 +1016,7 @@ html, body {
             <div class="board-card" data-idx="10" onclick="openLightbox(10)">
               
                 <div class="card-media tall">
-                  <img src="assets/888194357785622540_sp0_b0.jpg" alt="Acoustic Haptic Tick Sync" loading="lazy">
+                  <img src="assets/888194357785622540_sp0_b0.jpg" alt="Acoustic Haptic Tick Sync" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1019,7 +1030,7 @@ html, body {
             <div class="board-card" data-idx="11" onclick="openLightbox(11)">
               
                 <div class="card-media tall">
-                  <img src="assets/888194357785622429.jpg" alt="Dual-Screen Cloud Sync" loading="lazy">
+                  <img src="assets/888194357785622429.jpg" alt="Dual-Screen Cloud Sync" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1047,7 +1058,7 @@ html, body {
             <div class="board-card" data-idx="12" onclick="openLightbox(12)">
               
                 <div class="card-media tall">
-                  <video src="assets/vistoraclub_1791938084.mp4" poster="assets/posters/vistoraclub_1791938084.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/vistoraclub_1791938084.mp4" poster="assets/posters/vistoraclub_1791938084.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1061,7 +1072,7 @@ html, body {
             <div class="board-card" data-idx="13" onclick="openLightbox(13)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785622418.mp4" poster="assets/posters/888194357785622418.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785622418.mp4" poster="assets/posters/888194357785622418.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1075,7 +1086,7 @@ html, body {
             <div class="board-card" data-idx="14" onclick="openLightbox(14)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785622443.mp4" poster="assets/posters/888194357785622443.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785622443.mp4" poster="assets/posters/888194357785622443.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1089,7 +1100,7 @@ html, body {
             <div class="board-card" data-idx="15" onclick="openLightbox(15)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785622471.mp4" poster="assets/posters/888194357785622471.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785622471.mp4" poster="assets/posters/888194357785622471.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1103,7 +1114,7 @@ html, body {
             <div class="board-card" data-idx="16" onclick="openLightbox(16)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785622500.mp4" poster="assets/posters/888194357785622500.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785622500.mp4" poster="assets/posters/888194357785622500.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1117,7 +1128,7 @@ html, body {
             <div class="board-card" data-idx="17" onclick="openLightbox(17)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785622524.mp4" poster="assets/posters/888194357785622524.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785622524.mp4" poster="assets/posters/888194357785622524.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1131,7 +1142,7 @@ html, body {
             <div class="board-card" data-idx="18" onclick="openLightbox(18)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785622622.mp4" poster="assets/posters/888194357785622622.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785622622.mp4" poster="assets/posters/888194357785622622.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1145,7 +1156,7 @@ html, body {
             <div class="board-card" data-idx="19" onclick="openLightbox(19)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785623054.mp4" poster="assets/posters/888194357785623054.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785623054.mp4" poster="assets/posters/888194357785623054.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1159,7 +1170,7 @@ html, body {
             <div class="board-card" data-idx="20" onclick="openLightbox(20)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785623799.mp4" poster="assets/posters/888194357785623799.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785623799.mp4" poster="assets/posters/888194357785623799.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1173,7 +1184,7 @@ html, body {
             <div class="board-card" data-idx="21" onclick="openLightbox(21)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785628983.mp4" poster="assets/posters/888194357785628983.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785628983.mp4" poster="assets/posters/888194357785628983.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1201,7 +1212,7 @@ html, body {
             <div class="board-card" data-idx="22" onclick="openLightbox(22)">
               
                 <div class="card-media tall">
-                  <video src="assets/ElevenLabs.mp4" poster="assets/posters/ElevenLabs.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/ElevenLabs.mp4" poster="assets/posters/ElevenLabs.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1215,7 +1226,7 @@ html, body {
             <div class="board-card" data-idx="23" onclick="openLightbox(23)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785623116.mp4" poster="assets/posters/888194357785623116.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785623116.mp4" poster="assets/posters/888194357785623116.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1229,7 +1240,7 @@ html, body {
             <div class="board-card" data-idx="24" onclick="openLightbox(24)">
               
                 <div class="card-media tall">
-                  <video src="assets/qclaydesign_ssspin.io_1791939244.mp4" poster="assets/posters/qclaydesign_ssspin.io_1791939244.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/qclaydesign_ssspin.io_1791939244.mp4" poster="assets/posters/qclaydesign_ssspin.io_1791939244.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1243,7 +1254,7 @@ html, body {
             <div class="board-card" data-idx="25" onclick="openLightbox(25)">
               
                 <div class="card-media tall">
-                  <video src="assets/sandrew1087_ssspin.io_1791938741.mp4" poster="assets/posters/sandrew1087_ssspin.io_1791938741.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/sandrew1087_ssspin.io_1791938741.mp4" poster="assets/posters/sandrew1087_ssspin.io_1791938741.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1257,7 +1268,7 @@ html, body {
             <div class="board-card" data-idx="26" onclick="openLightbox(26)">
               
                 <div class="card-media tall">
-                  <img src="assets/888194357785623113.jpg" alt="Kinetic Button Snapping" loading="lazy">
+                  <img src="assets/888194357785623113.jpg" alt="Kinetic Button Snapping" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1271,7 +1282,7 @@ html, body {
             <div class="board-card" data-idx="27" onclick="openLightbox(27)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785622585.mp4" poster="assets/posters/888194357785622585.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785622585.mp4" poster="assets/posters/888194357785622585.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1285,7 +1296,7 @@ html, body {
             <div class="board-card" data-idx="28" onclick="openLightbox(28)">
               
                 <div class="card-media tall">
-                  <video src="assets/SnapInsta.to_AQMHRWSwp2ZZx_dM2m8Sxd7zEWs1bu6Lj_bf-s0x2KLRcOwHfZAcnxM_frcrEY4MqFZC61FcJJy-X4vF-6YmhUq8z2xWEK0hD1oxe4w.mp4" poster="assets/posters/SnapInsta.to_AQMHRWSwp2ZZx_dM2m8Sxd7zEWs1bu6Lj_bf-s0x2KLRcOwHfZAcnxM_frcrEY4MqFZC61FcJJy-X4vF-6YmhUq8z2xWEK0hD1oxe4w.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/SnapInsta.to_AQMHRWSwp2ZZx_dM2m8Sxd7zEWs1bu6Lj_bf-s0x2KLRcOwHfZAcnxM_frcrEY4MqFZC61FcJJy-X4vF-6YmhUq8z2xWEK0hD1oxe4w.mp4" poster="assets/posters/SnapInsta.to_AQMHRWSwp2ZZx_dM2m8Sxd7zEWs1bu6Lj_bf-s0x2KLRcOwHfZAcnxM_frcrEY4MqFZC61FcJJy-X4vF-6YmhUq8z2xWEK0hD1oxe4w.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1313,7 +1324,7 @@ html, body {
             <div class="board-card" data-idx="29" onclick="openLightbox(29)">
               
                 <div class="card-media tall">
-                  <video src="assets/AQOgisuxeRfjo-cd_kf0cS6s8-ucWCtHKdEvH4SdLfN5qq2YyywPKeGndiDQBw5jxWdDajYmvJDmU7hzhd8_lRwbXAJI6mcWBPy1dps.mp4" poster="assets/posters/AQOgisuxeRfjo-cd_kf0cS6s8-ucWCtHKdEvH4SdLfN5qq2YyywPKeGndiDQBw5jxWdDajYmvJDmU7hzhd8_lRwbXAJI6mcWBPy1dps.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/AQOgisuxeRfjo-cd_kf0cS6s8-ucWCtHKdEvH4SdLfN5qq2YyywPKeGndiDQBw5jxWdDajYmvJDmU7hzhd8_lRwbXAJI6mcWBPy1dps.mp4" poster="assets/posters/AQOgisuxeRfjo-cd_kf0cS6s8-ucWCtHKdEvH4SdLfN5qq2YyywPKeGndiDQBw5jxWdDajYmvJDmU7hzhd8_lRwbXAJI6mcWBPy1dps.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1327,7 +1338,7 @@ html, body {
             <div class="board-card" data-idx="30" onclick="openLightbox(30)">
               
                 <div class="card-media tall">
-                  <video src="assets/blumealc_ssspin.io_1791938227.mp4" poster="assets/posters/blumealc_ssspin.io_1791938227.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/blumealc_ssspin.io_1791938227.mp4" poster="assets/posters/blumealc_ssspin.io_1791938227.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1341,7 +1352,7 @@ html, body {
             <div class="board-card" data-idx="31" onclick="openLightbox(31)">
               
                 <div class="card-media tall">
-                  <video src="assets/888194357785622453.mp4" poster="assets/posters/888194357785622453.jpg" autoplay loop muted playsinline preload="metadata"></video>
+                  <video src="assets/888194357785622453.mp4" poster="assets/posters/888194357785622453.jpg" autoplay loop muted playsinline preload="metadata" controlsList="nodownload noplaybackrate" disablePictureInPicture draggable="false" oncontextmenu="return false;"></video>
                   <span class="card-badge vid">▶ Loop</span>
                 </div>
                 
@@ -1355,7 +1366,7 @@ html, body {
             <div class="board-card" data-idx="32" onclick="openLightbox(32)">
               
                 <div class="card-media square">
-                  <img src="assets/888194357785622534_c0.jpg" alt="Hearts & Arrows Symmetry" loading="lazy">
+                  <img src="assets/888194357785622534_c0.jpg" alt="Hearts & Arrows Symmetry" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1369,7 +1380,7 @@ html, body {
             <div class="board-card" data-idx="33" onclick="openLightbox(33)">
               
                 <div class="card-media square">
-                  <img src="assets/888194357785622534_c1.jpg" alt="Crown & Pavilion Angle Grid" loading="lazy">
+                  <img src="assets/888194357785622534_c1.jpg" alt="Crown & Pavilion Angle Grid" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1383,7 +1394,7 @@ html, body {
             <div class="board-card" data-idx="34" onclick="openLightbox(34)">
               
                 <div class="card-media square">
-                  <img src="assets/888194357785622534_c2.jpg" alt="Triple Ex Ray Paths" loading="lazy">
+                  <img src="assets/888194357785622534_c2.jpg" alt="Triple Ex Ray Paths" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1397,7 +1408,7 @@ html, body {
             <div class="board-card" data-idx="35" onclick="openLightbox(35)">
               
                 <div class="card-media square">
-                  <img src="assets/888194357785622534_c3.jpg" alt="Cushion & Radiant Matrix" loading="lazy">
+                  <img src="assets/888194357785622534_c3.jpg" alt="Cushion & Radiant Matrix" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1411,7 +1422,7 @@ html, body {
             <div class="board-card" data-idx="36" onclick="openLightbox(36)">
               
                 <div class="card-media square">
-                  <img src="assets/888194357785622534_c4.jpg" alt="6-Prong Head Engineering" loading="lazy">
+                  <img src="assets/888194357785622534_c4.jpg" alt="6-Prong Head Engineering" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1425,7 +1436,7 @@ html, body {
             <div class="board-card" data-idx="37" onclick="openLightbox(37)">
               
                 <div class="card-media square">
-                  <img src="assets/888194357785622534_c5.jpg" alt="Emerald Step-Facet Angles" loading="lazy">
+                  <img src="assets/888194357785622534_c5.jpg" alt="Emerald Step-Facet Angles" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1439,7 +1450,7 @@ html, body {
             <div class="board-card" data-idx="38" onclick="openLightbox(38)">
               
                 <div class="card-media square">
-                  <img src="assets/888194357785622534_c6.jpg" alt="Master Symmetry Blueprint" loading="lazy">
+                  <img src="assets/888194357785622534_c6.jpg" alt="Master Symmetry Blueprint" loading="lazy" draggable="false" oncontextmenu="return false;">
                   <span class="card-badge img">Photo</span>
                 </div>
                 
@@ -1710,11 +1721,17 @@ function openLightbox(idx) {
     vid.loop = true;
     vid.controls = true;
     vid.playsInline = true;
+    vid.setAttribute('controlsList', 'nodownload noplaybackrate');
+    vid.setAttribute('disablePictureInPicture', 'true');
+    vid.setAttribute('draggable', 'false');
+    vid.oncontextmenu = (e) => { e.preventDefault(); return false; };
     lbBody.appendChild(vid);
   } else {
     const img = document.createElement('img');
     img.src = src;
     img.alt = item.title;
+    img.setAttribute('draggable', 'false');
+    img.oncontextmenu = (e) => { e.preventDefault(); return false; };
     lbBody.appendChild(img);
   }
 
@@ -1758,6 +1775,20 @@ themeBtn.addEventListener('click', () => {
   const root = document.documentElement;
   const current = root.getAttribute('data-theme');
   root.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+});
+
+// Global Content Protection: Disable right-click context menu (Save As)
+document.addEventListener('contextmenu', (e) => {
+  e.preventDefault();
+  return false;
+});
+
+// Disable Save Page / Media keyboard shortcuts
+window.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+    e.preventDefault();
+    return false;
+  }
 });
 
 // Initialize fit on load
